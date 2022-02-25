@@ -8,10 +8,11 @@ if(el){
     });
 }**/
 
-//window.onload = function() {
-    document.querySelector('button').addEventListener('click', function() {
+var signin_var = document.querySelector('button');
+if(signin_var) {
+    signin_var.addEventListener('click', function() {
       chrome.identity.getAuthToken({interactive: true}, function(token) {
         console.log(token);
       });
     });
-//  };
+  };
