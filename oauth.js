@@ -1,7 +1,6 @@
 main();
 
 function main() {
-  var signin_var = document.querySelector('button');
   chrome.identity.getAuthToken({interactive: true}, function(token) {  
     var x = new XMLHttpRequest();
     x.addEventListener("load", buildUpcomingEvents);
