@@ -52,9 +52,9 @@ function buildUpcomingEvents() {
   for(let i = 0; i < data['items'].length; i++){
     if (data['items'][i]['start']['dateTime'] == null) {
       var TZOffset = getOffSet();
-      listOfEvents.push({nameOfEvent:data['items'][i]['summary'], startDate:data['items'][i]['start']['date'].concat('','T00:00:00', TZOffset), endDate: data['items'][i]['start']['date'].concat('','T23:59:59',TZOffset)})
+      listOfEvents.push({nameOfEvent:data['items'][i]['summary'], startDate:data['items'][i]['start']['date'].concat('','T00:00:00', TZOffset), endDate: data['items'][i]['end']['date'].concat('','T23:59:59',TZOffset)})
     }else{
-      listOfEvents.push({nameOfEvent:data['items'][i]['summary'], startDate:data['items'][i]['start']['dateTime'], endDate: data['items'][i]['start']['dateTime']})
+      listOfEvents.push({nameOfEvent:data['items'][i]['summary'], startDate:data['items'][i]['start']['dateTime'], endDate: data['items'][i]['end']['dateTime']})
     }
   }
   listOfEvents.sort(objectCompare);
