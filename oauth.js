@@ -20,6 +20,26 @@ function objectCompare(a, b){
   return 0;
 }
 
+function getOffSet(){
+  date = new Date();
+  var TZOffset = date.getTimezoneOffset();
+  if(TZOffset < 0){
+    var sign = '+';
+  }else{
+    var sign = '-';
+  }   
+  var offset = Math.abs(TZOffset);
+  var hours = Math.floor(offset/60);
+  if(hours < 10){
+    hours = '0' + hours;
+  }
+  var minutes = offset % 60
+  if(minutes < 10){
+    minutes = '0' + minutes;
+  }
+  return sign + hours + ":" + minutes;
+}
+
 function buildUpcomingEvents() {
   const data = JSON.parse(this.responseText);
   var eventsElement = document.getElementById("calendar_events");
@@ -31,7 +51,8 @@ function buildUpcomingEvents() {
   
   for(let i = 0; i < data['items'].length; i++){
     if (data['items'][i]['start']['dateTime'] == null) {
-      listOfEvents.push({nameOfEvent:data['items'][i]['summary'], startDate:data['items'][i]['start']['date'].concat('','T00:00:00.000Z'), endDate: data['items'][i]['start']['date'].concat('','T23:59:59.999Z')})
+      var TZOffset = getOffSet();
+      listOfEvents.push({nameOfEvent:data['items'][i]['summary'], startDate:data['items'][i]['start']['date'].concat('','T00:00:00', TZOffset), endDate: data['items'][i]['start']['date'].concat('','T23:59:59',TZOffset)})
     }else{
       listOfEvents.push({nameOfEvent:data['items'][i]['summary'], startDate:data['items'][i]['start']['dateTime'], endDate: data['items'][i]['start']['dateTime']})
     }
