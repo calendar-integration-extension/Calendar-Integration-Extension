@@ -14,26 +14,24 @@ function buildUpcomingEvents() {
   const data = JSON.parse(this.responseText);
   var eventsElement = document.getElementById("calendar_events");
   eventsElement.appendChild(document.createElement("tr"));
-  addNewEvent('th', "Event Name", eventsElement, 'text-align: left');
-  addNewEvent('th', "Start", eventsElement, 'text-align: left');
-  addNewEvent('th', "End", eventsElement, 'text-align: left');
+  addUpcomingEvent('th', "Event Name", eventsElement, 'text-align: left; padding-right:1rem');
+  addUpcomingEvent('th', "Start", eventsElement, 'text-align: left; padding-right:1rem');
+  addUpcomingEvent('th', "End", eventsElement, 'text-align: left');
   
   for(let i = 0; i < data['items'].length; i++){
+    eventsElement.appendChild(document.createElement("tr"));
+    addUpcomingEvent('td', data['items'][i]['summary'], eventsElement,'padding-right:1rem');
     if (data['items'][i]['start']['dateTime'] == null) {
-      eventsElement.appendChild(document.createElement("tr"));
-      addNewEvent('td', data['items'][i]['summary'], eventsElement);
-      addNewEvent('td', data['items'][i]['start']['date'], eventsElement);
-      addNewEvent('td', data['items'][i]['end']['date'], eventsElement);
+      addUpcomingEvent('td', data['items'][i]['start']['date'], eventsElement,'padding-right:1rem');
+      addUpcomingEvent('td', data['items'][i]['end']['date'], eventsElement);
     } else {
-      eventsElement.appendChild(document.createElement("tr"));
-      addNewEvent('td', data['items'][i]['summary'], eventsElement);
-      addNewEvent('td', data['items'][i]['start']['dateTime'], eventsElement);
-      addNewEvent('td', data['items'][i]['end']['dateTime'], eventsElement);
+      addUpcomingEvent('td', data['items'][i]['start']['dateTime'], eventsElement,'padding-right:1rem');
+      addUpcomingEvent('td', data['items'][i]['end']['dateTime'], eventsElement);
     }  
   }
 }
 
-function addNewEvent(tag, text, eventsElement, style = null) {
+function addUpcomingEvent(tag, text, eventsElement, style = null) {
   var tag = document.createElement(tag)
   var text = document.createTextNode(text)
   if (style != null) {
