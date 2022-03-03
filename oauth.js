@@ -4,14 +4,14 @@ function main() {
   var signin_var = document.querySelector('button');
   chrome.identity.getAuthToken({interactive: true}, function(token) {  
     var x = new XMLHttpRequest();
-    x.addEventListener("load", build_upcoming_events);
+    x.addEventListener("load", buildUpcomingEvents);
     x.open('GET', 'https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token=' + token, true);
     x.send();
   });  
-  build_calender_dates();
+  buildCalendarDates();
 }
 
-function build_upcoming_events() {
+function buildUpcomingEvents() {
   const data = JSON.parse(this.responseText);
   var eventsElement = document.getElementById("calendar_events");
   eventsElement.appendChild(document.createElement("tr"));
@@ -44,7 +44,7 @@ function addNewEvent(tag, text, eventsElement, style = null) {
   eventsElement.appendChild(tag)
 }
 
-function build_calender_dates() {
+function buildCalendarDates() {
   const date = new Date();
   const monthDays = document.querySelector(".days");
   const firstDay = new Date(date.getFullYear(), date.getMonth(),1);
