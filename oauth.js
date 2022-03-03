@@ -117,3 +117,23 @@ var signin_var = document.querySelector('button');
 
     
   //};
+
+
+
+//code for calendar needs to be edited still!
+const date = new Date();
+const monthDays = document.querySelector(".days");
+const firstDay = new Date(date.getFullYear(), date.getMonth(),1);
+const lastDay = new Date(date.getFullYear(), date.getMonth()+1,0).getDate();
+let days ="";
+const first_few = date.getDay(firstDay);
+
+for(let x = first_few;x > 2; x--){
+  days += `<div></div>`;
+  monthDays.innerHTML = days;
+}
+
+for(let i = 1; i <=lastDay; i++){
+  days += `<div>${i}</div>`;
+  monthDays.innerHTML = days;
+}

@@ -1,5 +1,49 @@
 body {
-    width: 200px;
-    height: 200px;
+    width: 500px;
+    height: 400px;
     overflow: hidden;
+ }
+
+ .month{
+     width:75%;
+     height: 12rem;
+     display:flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 02 rem;
+     text-align: center;
+
+ }
+
+ .weekdays{
+     width: 100%;
+
+     display: flex;
+ }
+
+ .weekdays div{
+    width: calc(44.2rem/7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+
+ .days{
+     width: 100%;
+     display: flex;
+     flex-wrap: wrap;
+ }
+
+ .days div{
+    width: calc(31.2rem/7);
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+ }
+
+ .upcoming_events{
+    padding: 02 rem;
+    width: 100%;
  }
