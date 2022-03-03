@@ -10,6 +10,16 @@ function main() {
   buildCalendarDates();
 }
 
+function objectCompare(a, b){
+  if(a.startDate < b.startDate){
+    return -1;
+  }
+  if(a.startDate > b.startDate){
+    return 1;
+  }
+  return 0;
+}
+
 function buildUpcomingEvents() {
   const data = JSON.parse(this.responseText);
   var eventsElement = document.getElementById("calendar_events");
@@ -17,17 +27,36 @@ function buildUpcomingEvents() {
   addUpcomingEvent('th', "Event Name", eventsElement, 'text-align: left; padding-right:1rem');
   addUpcomingEvent('th', "Start", eventsElement, 'text-align: left; padding-right:1rem');
   addUpcomingEvent('th', "End", eventsElement, 'text-align: left');
+  const listOfEvents = []
   
   for(let i = 0; i < data['items'].length; i++){
-    eventsElement.appendChild(document.createElement("tr"));
-    addUpcomingEvent('td', data['items'][i]['summary'], eventsElement,'padding-right:1rem');
     if (data['items'][i]['start']['dateTime'] == null) {
-      addUpcomingEvent('td', data['items'][i]['start']['date'], eventsElement,'padding-right:1rem');
-      addUpcomingEvent('td', data['items'][i]['end']['date'], eventsElement);
-    } else {
-      addUpcomingEvent('td', data['items'][i]['start']['dateTime'], eventsElement,'padding-right:1rem');
-      addUpcomingEvent('td', data['items'][i]['end']['dateTime'], eventsElement);
-    }  
+      listOfEvents.push({nameOfEvent:data['items'][i]['summary'], startDate:data['items'][i]['start']['date'].concat('','T00:00:00.000Z'), endDate: data['items'][i]['start']['date'].concat('','T23:59:59.999Z')})
+    }else{
+      listOfEvents.push({nameOfEvent:data['items'][i]['summary'], startDate:data['items'][i]['start']['dateTime'], endDate: data['items'][i]['start']['dateTime']})
+    }
+  }
+  listOfEvents.sort(objectCompare);
+  console.log(listOfEvents);
+
+  for(let i = 0; i < data['items'].length; i++){
+    var dateNow = new Date();
+    var eventDate = new Date(listOfEvents[i].endDate);
+    var diff = eventDate - dateNow;
+    console.log(dateNow.toISOString());
+    console.log(eventDate);
+    console.log(dateNow);
+    console.log(diff);
+    if(diff > 0){
+      console.log(listOfEvents[i].nameOfEvent);
+      eventsElement.appendChild(document.createElement("tr"));
+      addUpcomingEvent('td', listOfEvents[i].nameOfEvent, eventsElement,'padding-right:1rem');
+      addUpcomingEvent('td', listOfEvents[i].startDate, eventsElement,'padding-right:1rem');
+      addUpcomingEvent('td', listOfEvents[i].endDate, eventsElement);
+
+    }
+    
+
   }
 }
 
@@ -63,3 +92,11 @@ function buildCalendarDates() {
 
   monthDays.innerHTML = days;
 }
+
+
+
+
+
+
+
+
