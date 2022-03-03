@@ -1,139 +1,68 @@
+main();
 
-/**var el = document.querySelector('signin');
-if(el){
-    el.addEventListener('click', function() {
-        chrome.identity.getAuthToken({interactive: true}, function(token) {
-        console.log(token);
-        });
-    });
-}**/
-
-var signin_var = document.querySelector('button');
-//if(signin_var) {
-    //signin_var.addEventListener('click', function() {
-      chrome.identity.getAuthToken({interactive: true}, function(token) {
-        console.log(token);
-
-        var x = new XMLHttpRequest();
-
-        x.onload = () => {
-          const data = JSON.parse(x.responseText);
-      
-          // log response
-
-          var element = document.getElementById("calendar_events");
-          
-          console.log(data);
-          element.appendChild(document.createElement("tr"));
-          var tag = document.createElement("th");
-          tag.style.cssText = 'text-align: left';
-          var text = document.createTextNode("Event Name");
-          tag.appendChild(text);
-          element.appendChild(tag);
-          var tag = document.createElement("th");
-          tag.style.cssText = 'text-align: left';
-          var text = document.createTextNode("Start");
-          tag.appendChild(text);
-          element.appendChild(tag);
-          var tag = document.createElement("th");
-          tag.style.cssText = 'text-align: left';
-          var text = document.createTextNode("End");
-          tag.appendChild(text);
-          element.appendChild(tag);
-
-          for(let i = 0; i < data['items'].length; i++){
-            console.log(data['items'][i]['summary']);
-            if(data['items'][i]['start']['dateTime'] == null){
-              element.appendChild(document.createElement("tr"));
-              var tag = document.createElement("td");
-              var text = document.createTextNode(data['items'][i]['summary']);
-              tag.appendChild(text);
-              element.appendChild(tag);
-              var tag = document.createElement("td");
-              var text = document.createTextNode(data['items'][i]['start']['date']);
-              tag.appendChild(text);
-              element.appendChild(tag);
-              var tag = document.createElement("td");
-              var text = document.createTextNode(data['items'][i]['end']['date']);
-              tag.appendChild(text);
-              element.appendChild(tag);
-            }else{
-              element.appendChild(document.createElement("tr"));
-              var tag = document.createElement("td");
-              var text = document.createTextNode(data['items'][i]['summary']);
-              tag.appendChild(text);
-              element.appendChild(tag);
-              var tag = document.createElement("td");
-              var text = document.createTextNode(data['items'][i]['start']['dateTime']);
-              tag.appendChild(text);
-              element.appendChild(tag);
-              var tag = document.createElement("td");
-              var text = document.createTextNode(data['items'][i]['end']['dateTime']);
-              tag.appendChild(text);
-              element.appendChild(tag);
-            }
-
-
-            
-            
-          }
-
-
-          
-
-
-
-
-      };
-        x.open('GET', 'https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token=' + token, true);
-        //x.onload = function() {
-        //    alert(x.response);
-        //};
-
-
-
-
-
-        
-        
-        x.send();
-        
-        //console.log(x);
-
-
-        //let fetchRes = fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events');
-
-        //fetchRes.then(res =>
-                //res.json()).then(d => {
-                    //console.log(d)
-                //})
-      });
-
-      
-
-    //});
-    
-
-
-    
-  //};
-
-
-
-//code for calendar needs to be edited still!
-const date = new Date();
-const monthDays = document.querySelector(".days");
-const firstDay = new Date(date.getFullYear(), date.getMonth(),1);
-const lastDay = new Date(date.getFullYear(), date.getMonth()+1,0).getDate();
-let days ="";
-const first_few = date.getDay(firstDay);
-
-for(let x = first_few;x > 2; x--){
-  days += `<div></div>`;
-  monthDays.innerHTML = days;
+function main() {
+  var signin_var = document.querySelector('button');
+  chrome.identity.getAuthToken({interactive: true}, function(token) {  
+    var x = new XMLHttpRequest();
+    x.addEventListener("load", build_upcoming_events);
+    x.open('GET', 'https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token=' + token, true);
+    x.send();
+  });  
+  build_calender_dates();
 }
 
-for(let i = 1; i <=lastDay; i++){
-  days += `<div>${i}</div>`;
+function build_upcoming_events() {
+  const data = JSON.parse(this.responseText);
+  var eventsElement = document.getElementById("calendar_events");
+  eventsElement.appendChild(document.createElement("tr"));
+  addNewEvent('th', "Event Name", eventsElement, 'text-align: left');
+  addNewEvent('th', "Start", eventsElement, 'text-align: left');
+  addNewEvent('th', "End", eventsElement, 'text-align: left');
+  
+  for(let i = 0; i < data['items'].length; i++){
+    if (data['items'][i]['start']['dateTime'] == null) {
+      eventsElement.appendChild(document.createElement("tr"));
+      addNewEvent('td', data['items'][i]['summary'], eventsElement);
+      addNewEvent('td', data['items'][i]['start']['date'], eventsElement);
+      addNewEvent('td', data['items'][i]['end']['date'], eventsElement);
+    } else {
+      eventsElement.appendChild(document.createElement("tr"));
+      addNewEvent('td', data['items'][i]['summary'], eventsElement);
+      addNewEvent('td', data['items'][i]['start']['dateTime'], eventsElement);
+      addNewEvent('td', data['items'][i]['end']['dateTime'], eventsElement);
+    }  
+  }
+}
+
+function addNewEvent(tag, text, eventsElement, style = null) {
+  var tag = document.createElement(tag)
+  var text = document.createTextNode(text)
+  if (style != null) {
+    tag.style.cssText = style;
+  }
+  tag.appendChild(text);
+  eventsElement.appendChild(tag)
+}
+
+function build_calender_dates() {
+  const date = new Date();
+  const monthDays = document.querySelector(".days");
+  const firstDay = new Date(date.getFullYear(), date.getMonth(),1);
+  const lastDay = new Date(date.getFullYear(), date.getMonth()+1,0).getDate();
+
+  // Amount of blank dates that must be included in the calendar before starting
+  // at the first date of the month.
+  const blank_dates_amount = firstDay.getDay();
+
+  let days = "";
+  
+  for (let i = 1; i <= blank_dates_amount; i++){
+    days += `<div></div>`;
+  }
+  
+  for (let i = 1; i <=lastDay; i++){
+    days += `<div>${i}</div>`;
+  }
+
   monthDays.innerHTML = days;
 }
