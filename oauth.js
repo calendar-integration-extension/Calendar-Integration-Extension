@@ -49,11 +49,11 @@ function buildCalendarDates() {
 
   // Amount of blank dates that must be included in the calendar before starting
   // at the first date of the month.
-  const blank_dates_amount = firstDay.getDay();
+  const blankDatesAmount = firstDay.getDay();
 
   let days = "";
   
-  for (let i = 1; i <= blank_dates_amount; i++){
+  for (let i = 1; i <= blankDatesAmount; i++){
     days += `<div></div>`;
   }
   
