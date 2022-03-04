@@ -15,7 +15,7 @@ Rule, Camille P.
 
 ## Project Description
 
-This extension provides a handy interface to manage your Google Calendar events wherever you are in the Web.
+This extension provides a handy interface to manage and view your Google Calendar events wherever you are in the Web.
 
 ## Project Limitation
 
