@@ -10,12 +10,12 @@ function main() {
   buildCalendarDates();
 }
 
-function objectCompare(a, b){
-  if(a.startDate < b.startDate){
-    return -1;
-  }
-  if(a.startDate > b.startDate){
+function objectCompare(firstDate, secondDate){
+  if(firstDate.startDate > secondDate.startDate){
     return 1;
+  }
+  if(firstDate.startDate < secondDate.startDate){
+    return -1;
   }
   return 0;
 }
@@ -33,11 +33,11 @@ function getOffSet(){
   if(hours < 10){
     hours = '0' + hours;
   }
-  var minutes = offset % 60
-  if(minutes < 10){
-    minutes = '0' + minutes;
+  var mins = offset % 60
+  if(mins < 10){
+    mins = '0' + mins;
   }
-  return sign + hours + ":" + minutes;
+  return sign + hours + ":" + mins;
 }
 
 function buildUpcomingEvents() {
