@@ -51,11 +51,11 @@ This extension provides a handy interface to manage and view your Google Calenda
 
 ## Installation and Set Up Guide
 
-1. Run `git clone https://github.com/calendar-integration-extension/Calendar-Integration-Extension.git` to your terminal.
+1. Run `git clone https://github.com/calendar-integration-extension/Calendar-Integration-Extension.git` in your terminal.
 2. Open Google Chrome, run `chrome://extensions` in the search bar to open the _Extensions_ page.
 3. Within the _Extensions_ page, toggle On the _Developer mode_ found on the top right corner of the page.
 4. Press the _Load unpacked_ button on the upper left, which directs you to your file system.
-5. Go to the directory where the repo is cloned (done in step 1) and click the folder named `Calendar-Integration-Extension` 
+5. Go to the directory where the repo is cloned (done in step 1), click the folder named `Calendar-Integration-Extension`, 
    and press _Select Folder_ to load its contents as a Google Chrome extension.
 6. Pressing the 'puzzle piece' button on the top right will list all the currently-installed extensions in your web browser,
    check that _Google Calendar Extension_ is included.
