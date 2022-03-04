@@ -42,21 +42,22 @@ function objectCompare(firstDate, secondDate){
 function getOffSet(){
   date = new Date();
   var TZOffset = date.getTimezoneOffset();
+
   if(TZOffset < 0){
     var sign = '+';
   }else{
     var sign = '-';
   }   
   var offset = Math.abs(TZOffset);
-  var hours = Math.floor(offset/60);
-  if(hours < 10){
-    hours = '0' + hours;
+  var hour = Math.floor(offset/60);
+  if(hour < 10){
+    hour = '0' + hour;
   }
-  var mins = offset % 60
-  if(mins < 10){
-    mins = '0' + mins;
+  var min = offset % 60;
+  if(min < 10){
+    min = '0' + min;
   }
-  return sign + hours + ":" + mins;
+  return sign + hour + ":" + min;
 }
 
 function buildUpcomingEvents(x) {
@@ -113,25 +114,22 @@ function addUpcomingEvent(tag, text, eventsElement, style = null) {
 
 function buildCalendarDates() {
   const date = new Date();
-  const monthDays = document.querySelector(".days");
-  const firstDay = new Date(date.getFullYear(), date.getMonth(),1);
-  const lastDay = new Date(date.getFullYear(), date.getMonth()+1,0).getDate();
-
+  
   // Amount of blank dates that must be included in the calendar before starting
   // at the first date of the month.
-  const blankDatesAmount = firstDay.getDay();
-
-  let days = "";
+  const dayOne = new Date(date.getFullYear(), date.getMonth(),1);
+  const blankDatesAmount = dayOne.getDay();
+  let calendarDays = "";
   
   for (let i = 1; i <= blankDatesAmount; i++){
-    days += `<div></div>`;
+    calendarDays += `<div></div>`;
   }
   
-  for (let i = 1; i <=lastDay; i++){
-    days += `<div>${i}</div>`;
+  for (let i = 1; i <=new Date(date.getFullYear(), date.getMonth()+1,0).getDate(); i++){
+    calendarDays += `<div>${i}</div>`;
   }
 
-  monthDays.innerHTML = days;
+  document.querySelector(".days").innerHTML = calendarDays;
 }
 
 
