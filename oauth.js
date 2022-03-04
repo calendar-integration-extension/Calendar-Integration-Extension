@@ -1,6 +1,12 @@
+var eventsElement = document.getElementById("calendar_events");
+eventsElement.appendChild(document.createElement("tr"));
+addUpcomingEvent('th', "Event Name", eventsElement, 'text-align: left; padding-right:1rem');
+addUpcomingEvent('th', "Start", eventsElement, 'text-align: left; padding-right:1rem');
+addUpcomingEvent('th', "End", eventsElement, 'text-align: left'); 
 main();
 
 function main() {
+  
   chrome.identity.getAuthToken({interactive: true}, function(token) { 
     console.log(token); 
     var x = new XMLHttpRequest();
@@ -19,11 +25,7 @@ function main() {
     x.open('GET', 'https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token=' + token, true);
     x.send();
   });
-  var eventsElement = document.getElementById("calendar_events");
-  eventsElement.appendChild(document.createElement("tr"));
-  addUpcomingEvent('th', "Event Name", eventsElement, 'text-align: left; padding-right:1rem');
-  addUpcomingEvent('th', "Start", eventsElement, 'text-align: left; padding-right:1rem');
-  addUpcomingEvent('th', "End", eventsElement, 'text-align: left');  
+   
   buildCalendarDates();
 }
 
