@@ -19,7 +19,7 @@ This extension provides a handy interface to manage and view your Google Calenda
 
 ## Project Limitation
 
-* This project is currently _Work In Progress_. 
+* This project is currently a _Work In Progress_. 
 * Google Chrome is _currently_ the only supported web browser by this extension. Support for other web browsers
   can be done once most of the extension's important features are implemented. 
 * _Check the [Features Checklist](#features-checklist) to be aware of the other features that are not yet currently 
@@ -47,7 +47,7 @@ This extension provides a handy interface to manage and view your Google Calenda
   - [ ] Pomodoro session handling.
     - [ ] Start new Pomodoro session.
     - [ ] Stop current Pomodoro session.
-- [ ] Beautiful interface.
+- [ ] Beautiful user interface.
 
 ## Installation and Set Up Guide
 
