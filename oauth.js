@@ -1,10 +1,14 @@
-var eventsElement = document.getElementById("calendar_events");
-eventsElement.appendChild(document.createElement("tr"));
-addUpcomingEvent('th', "Event Name", eventsElement, 'text-align: left; padding-right:1rem');
-addUpcomingEvent('th', "Start", eventsElement, 'text-align: left; padding-right:1rem');
-addUpcomingEvent('th', "End", eventsElement, 'text-align: left'); 
+makeStructure();
 main();
 
+function makeStructure(){
+  var eventsElement = document.getElementById("calendar_events");
+  eventsElement.appendChild(document.createElement("tr"));
+  addUpcomingEvent('th', "Event Name", eventsElement, 'text-align: left; padding-right:1rem');
+  addUpcomingEvent('th', "Start", eventsElement, 'text-align: left; padding-right:1rem');
+  addUpcomingEvent('th', "End", eventsElement, 'text-align: left');
+  buildCalendarDates();
+}
 function main() {
   
   chrome.identity.getAuthToken({interactive: true}, function(token) { 
@@ -26,7 +30,7 @@ function main() {
     x.send();
   });
    
-  buildCalendarDates();
+  
 }
 
 function objectCompare(firstDate, secondDate){
@@ -67,6 +71,7 @@ function buildUpcomingEvents(x) {
   const listOfEvents = []
   console.log(data['items']);
   if(typeof data['items'] !== 'undefined'){
+    
     for(let i = 0; i < data['items'].length; i++){
       if (data['items'][i]['start']['dateTime'] == null) {
         var TZOffset = getOffSet();
@@ -78,16 +83,15 @@ function buildUpcomingEvents(x) {
   
     listOfEvents.sort(objectCompare);
     console.log(listOfEvents);
+    var anyUpcomingEvents = 0;
 
     for(let i = 0; i < data['items'].length; i++){
       var dateNow = new Date();
       var eventDate = new Date(listOfEvents[i].endDate);
       var diff = eventDate - dateNow;
-      console.log(dateNow.toISOString());
-      console.log(eventDate);
-      console.log(dateNow);
-      console.log(diff);
+
       if(diff > 0){
+        anyUpcomingEvents = 1;
         console.log(listOfEvents[i].nameOfEvent);
         eventsElement.appendChild(document.createElement("tr"));
         addUpcomingEvent('td', listOfEvents[i].nameOfEvent, eventsElement,'padding-right:1rem');
@@ -95,8 +99,10 @@ function buildUpcomingEvents(x) {
         addUpcomingEvent('td', listOfEvents[i].endDate, eventsElement);
 
       }
-      
-
+    }
+    if(anyUpcomingEvents == 0){
+      eventsElement.appendChild(document.createElement("tr"));
+      addUpcomingEvent('td', "No upcoming events!", eventsElement,'padding-right:1rem');
     }
   }
 
@@ -119,17 +125,21 @@ function buildCalendarDates() {
   // at the first date of the month.
   const dayOne = new Date(date.getFullYear(), date.getMonth(),1);
   const blankDatesAmount = dayOne.getDay();
-  let calendarDays = "";
+  var calDates = document.getElementById("thedays");
+  
   
   for (let i = 1; i <= blankDatesAmount; i++){
-    calendarDays += `<div></div>`;
+    var blankSpace = document.createElement("div");
+    console.log(blankSpace);
+    blankSpace.innerHTML = "";
+    calDates.appendChild(blankSpace);
   }
   
   for (let i = 1; i <=new Date(date.getFullYear(), date.getMonth()+1,0).getDate(); i++){
-    calendarDays += `<div>${i}</div>`;
+    var tag = document.createElement("div");
+    tag.innerText = i;
+    calDates.appendChild(tag);
   }
-
-  document.querySelector(".days").innerHTML = calendarDays;
 }
 
 
