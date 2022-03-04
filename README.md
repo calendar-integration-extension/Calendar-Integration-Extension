@@ -47,6 +47,7 @@ This extension provides a handy interface to manage and view your Google Calenda
   - [ ] Pomodoro session handling.
     - [ ] Start new Pomodoro session.
     - [ ] Stop current Pomodoro session.
+- [ ] Beautiful interface.
 
 ## Installation and Set Up Guide
 
