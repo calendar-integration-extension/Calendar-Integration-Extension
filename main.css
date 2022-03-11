@@ -1,18 +1,17 @@
-body {
+#index-body {
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+}
+
+/* Manipulates calendar.html */
+
+#calendar-body {
     width: 500px;
     height: 400px;
     overflow: hidden;
 }
-
-#pomodoro-button {
-    width: 45px;
-    height: 45px;
-}
-
-.padding {
-    padding-left: 450px;
-}
-
+ 
 .month{
     width:75%;
     height: 12rem;
@@ -55,4 +54,31 @@ align-items: center;
 .upcoming_events{
 padding: 02 rem;
 width: 100%;
+}
+
+/* Manipulates pomodoro.html */
+
+.pomodoro-body {
+    width: 500px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.pomodoro-title {
+    font-size: 30px;
+    text-align: center;
+}
+
+.pomodoro-status {
+    font-size: 15px;
+    text-align: center
+}
+
+.pomodoro-timer-display {
+    font-size: 80px;
+    text-align: center;
+}
+
+.pomodoro-timer-control {
+    text-align: center;
 }
