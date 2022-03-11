@@ -1,8 +1,8 @@
-var running = false;
-var interval = null;
-
 const SESSION_MINUTES = 25 * 60;
 const BREAK_MINUTES = 5 * 60;
+
+var running = false;
+var interval = null;
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.command === 'START_SESSION') {
