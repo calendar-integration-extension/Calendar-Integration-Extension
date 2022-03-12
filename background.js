@@ -18,7 +18,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     } else if (message.command === 'START_SESSION') {
         chrome.action.setBadgeText({ text: 'POM' });
         chrome.action.setBadgeBackgroundColor({ color: '#0000ff' });
-        chrome.action.setTitle({ title: 'Calendaring at your finest.\nCurrently in a Pomodoro session.' });
+        chrome.action.setTitle({ title: 'Calendaring at your finest.\nCurrently in a 25-minute Pomodoro session.' });
         chrome.alarms.create('SESSION_ALARM', { delayInMinutes: SESSION_MINUTES });
         chrome.alarms.getAll(alarms => {
             console.log(alarms);
