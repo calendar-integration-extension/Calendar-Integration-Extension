@@ -2,9 +2,9 @@
 
 This is a course requirements for CS191/192 Software Engineering Courses of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman under the guidance of Ma. Rowena C. Solamo for AY 2020-2021.
 
-Antonio, David Albert G.
-Mariñas,  Gabriel Kenneth L.
-Morco, Michael Bejamin C.
+Antonio, David Albert G. <br>
+Mariñas,  Gabriel Kenneth L. <br>
+Morco, Michael Bejamin C. <br>
 Rule, Camille P.
 
 ## Table of Contents
