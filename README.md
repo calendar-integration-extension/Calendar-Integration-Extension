@@ -29,7 +29,7 @@ This extension provides a handy interface to manage and view your Google Calenda
 - [ ] Sign-in through Gmail to access the extension.
   - [x] Allow _only_ our group members to sign-in via their Gmail account.
   - [ ] Allow _anyone_ with a Gmail account to sign-in.
-- [ ] Retrieve events from user's Google Calendar account.
+- [ ] Retrieve and display events from user's Google Calendar account.
 - [x] Main menu interface.
 - [ ] Calendar and Events section.
   - [x] Add Month view.
@@ -42,11 +42,11 @@ This extension provides a handy interface to manage and view your Google Calenda
     - [ ] Add new event.
     - [ ] Edit existing event.
     - [ ] Delete existing event.
-- [ ] Pomodoro section.
-  - [ ] Interface for viewing Pomodoro section.
-  - [ ] Pomodoro session handling.
-    - [ ] Start new Pomodoro session.
-    - [ ] Stop current Pomodoro session.
+- [x] Pomodoro section.
+  - [x] Interface for viewing Pomodoro section.
+  - [x] Pomodoro session handling.
+    - [x] Start new Pomodoro session.
+    - [x] Stop current Pomodoro session.
 - [ ] Beautiful user interface.
 
 ## Installation and Set Up Guide
