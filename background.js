@@ -1,57 +1,5 @@
-const SESSION_MINUTES = 1;
-const BREAK_MINUTES = 1;
-// const BREAK_MINUTES = 5 * 60;
-
-// var running = false;
-// var interval = null;
-
-// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-//     if (message.command === 'START_SESSION') {
-//         if (interval != null) clearInterval(interval);
-//         let onSession = true;
-//         let seconds = SESSION_MINUTES;
-//         running = true;
-//         interval = setInterval(() => {
-//             seconds--;
-//             console.log(seconds);
-//             let color = onSession ? '#0000ff' : '#03c04a';
-//             chrome.browserAction.setBadgeText({
-//                 text: Math.ceil(seconds / 60).toString()
-//             });
-//             chrome.browserAction.setBadgeBackgroundColor({
-//                 color: color
-//             });
-//             if (seconds === 0) {
-//                 let options = onSession ?
-//                     {
-//                         type: 'basic',
-//                         iconUrl: 'images/2-48.png',
-//                         message: 'Time to take a break. :)',
-//                         title: 'Pomodoro Session Finished.'
-//                     } :
-//                     {
-//                         type: 'basic',
-//                         iconUrl: 'images/2-48.png',
-//                         message: 'Get back to work. Go go go!',
-//                         title: 'Break Session Finished.'
-//                     };
-//                 chrome.notifications.create(options);
-//                 seconds = onSession ? BREAK_TIME : SESSION_TIME;
-//                 onSession = onSession ? false : true;
-//             }
-//         }, 1000);
-//         return true;
-//     } else if (message.command === 'STOP_SESSION') {
-//         chrome.browserAction.setBadgeText({ text: '' });
-//         running = false;
-//         clearInterval(interval);
-//         interval = null;
-//         return true;
-//     } else if (message.command === 'GET_STATE') {
-//         sendResponse({ running: running });
-//         return true;
-//     }
-// });
+const SESSION_MINUTES = 25;
+const BREAK_MINUTES = 5;
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.command === 'GET_TIME_LEFT') {
@@ -87,12 +35,12 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name === 'SESSION_ALARM') {
         chrome.action.setBadgeText({ text: 'BRK' });
         chrome.action.setBadgeBackgroundColor({ color: '#03c04a' });
-        chrome.action.setTitle({ title: 'Calendaring at your finest.\nCurrently taking a break.' });
+        chrome.action.setTitle({ title: 'Calendaring at your finest.\nCurrently taking a 5-minute break.' });
         chrome.alarms.create('BREAK_ALARM', {delayInMinutes: BREAK_MINUTES} );
     } else if (alarm.name === 'BREAK_ALARM') {
         chrome.action.setBadgeText({ text: 'POM' });
         chrome.action.setBadgeBackgroundColor({ color: '#0000ff' });
-        chrome.action.setTitle({ title: 'Calendaring at your finest.\nCurrently in a Pomodoro session.' });
+        chrome.action.setTitle({ title: 'Calendaring at your finest.\nCurrently in a 25-minute Pomodoro session.' });
         chrome.alarms.create('SESSION_ALARM', {delayInMinutes: SESSION_MINUTES} );
     }
 
