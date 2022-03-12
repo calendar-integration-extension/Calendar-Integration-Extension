@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Google Calendar Extension",
-    "permissions": ["activeTab","identity"],
+    "permissions": ["activeTab","identity", "notifications", "alarms"],
     "description": "A Google Calendar Integrated Extension with a Pomodoro timer to help keep users productive throughout the work day.",
     "version": "1.0.0",
     "icons": {
@@ -13,12 +13,12 @@
         "default_title": "Calendaring at your finest",
         "default_popup": "popup.html"
     },
-
+    "background": {
+        "service_worker": "background.js"
+    },
     "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhzgRcFEYZhMVn2TafoehNVc203KZeieHvpg/ib02Buh4xszxmSlDPByJ8bVpgCHo89yj4HKgU7nEsq7K9O1sFVCIK3Rny3t4i3KL4ExGCIa/zIa4P0EE5RC8Nzf4TiBuRANLb2Dm+TXERpoJkRFpdMg1LoQ8ylxL4Ji81u4lQ824LgfXAXZODUJpL8B+cCStSQlCSIaLnVasG0VhODbJ1kAerkcFupUrZq1iCmRDhCDixCug7tZObsdWfwEFn+Gt5dHNLBpmoMa7s4qIRtqYw0vAm4YpUA/P7PpxPUTYSSdtI5tjLY4LgXnkcH976cYgLc5roClcZ47ZjGhcElLlFwIDAQAB",
-    
     "oauth2":{
         "client_id": "190238484374-fn624q8qln397unvfsmmpqco977ml8lc.apps.googleusercontent.com",
         "scopes":["openid", "email", "profile", "https://www.googleapis.com/auth/calendar","https://www.googleapis.com/auth/calendar.events","https://www.googleapis.com/auth/calendar.readonly"]
-
     }
 }
