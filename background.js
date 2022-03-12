@@ -1,6 +1,10 @@
 const SESSION_MINUTES = 25;
 const BREAK_MINUTES = 5;
 
+chrome.windows.onCreated.addListener((window) => {
+    chrome.alarms.create('WINDOW_INIT', {delayInMinutes: 0});
+});
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.command === 'GET_TIME_LEFT') {
         let response = {};
@@ -37,14 +41,17 @@ chrome.alarms.onAlarm.addListener((alarm) => {
         chrome.action.setBadgeBackgroundColor({ color: '#03c04a' });
         chrome.action.setTitle({ title: 'Calendaring at your finest.\nCurrently taking a 5-minute break.' });
         chrome.alarms.create('BREAK_ALARM', {delayInMinutes: BREAK_MINUTES} );
+        sendNotification(alarm.name);
     } else if (alarm.name === 'BREAK_ALARM') {
         chrome.action.setBadgeText({ text: 'POM' });
         chrome.action.setBadgeBackgroundColor({ color: '#0000ff' });
         chrome.action.setTitle({ title: 'Calendaring at your finest.\nCurrently in a 25-minute Pomodoro session.' });
         chrome.alarms.create('SESSION_ALARM', {delayInMinutes: SESSION_MINUTES} );
+        sendNotification(alarm.name);
+    } else if (alarm.name === 'WINDOW_INIT') {
+        chrome.action.setBadgeText({ text: '' });
+        chrome.alarms.clearAll();
     }
-
-    sendNotification(alarm.name);
 })
 
 function sendNotification(alarmName) {
