@@ -16,6 +16,7 @@ Rule, Camille P.
 ## Project Description
 
 This extension provides a handy interface to manage and view your Google Calendar events wherever you are in the Web.
+In addition, you can use the built-in Pomodoro timer to help you focus in your studies or in your work.
 
 ## Project Limitation
 
@@ -59,4 +60,5 @@ This extension provides a handy interface to manage and view your Google Calenda
    and press _Select Folder_ to load its contents as a Google Chrome extension.
 6. Pressing the 'puzzle piece' button on the top right will list all the currently-installed extensions in your web browser,
    check that _Google Calendar Extension_ is included.
-7. You can now use the extension.
+7. Log-in using your Gmail account. **Note:** only a select amount of Gmails are allowed to log-in ([this will change](#features-checklist)).
+8. You can now use the extension. :)
