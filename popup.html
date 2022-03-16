@@ -6,12 +6,58 @@
     <meta http-equiv="X-UA-Compatible" content = "ie-edge">
     <title>Calendar Extension</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredoka">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body id="index-body">
+<style>
+h1 
+{
+    font-family: 'Fredoka';
+    color: #1b392c;
+    text-align: center;
+}
 
-    <h1>Hello!</h1>
-    <a href="calendar.html"><button id = "demo">Calendar</button></a>
-    <a href="pomodoro.html"><button>Pomodoro</button></a>
+
+span {
+    display: block;
+    font-family: 'Fredoka';
+    color: #fffdf0;
+    font-size: 18px;
+    padding-top: 10px;
+}
+.homebutns 
+{   
+    background-color: transparent;
+    border: none;
+    color: #fffdf0;
+    padding: 20px 20px; /* Some padding */
+    cursor: pointer; /* Mouse pointer on hover */
+    transition-duration: 0.4s;
+}
+
+.homebutns:hover
+{
+  background-color: #4b5f63;
+  border-radius: 13px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+</style>
+<body id="index-body">
+    <img src="/images/logo-prev.png" alt="logo" class="logo">
+    <h1>How would you like to be productive today?</h1>
+    <div id="homebutton">
+    <a href="calendar.html">
+        <button id = "demo" class="homebutns">
+            <i class="fa fa-calendar fa-4x" aria-hidden="true"></i>
+            <span>Calendar</span>
+        </button></a>
+    <a href="pomodoro.html">
+        <button class = "homebutns">
+            <i class="fa fa-clock-o fa-4x" aria-hidden="true"></i>
+            <span>Pomodoro</span>
+        </button></a>
+    </div>
 
     <script src="popup.js"></script>
 </body>

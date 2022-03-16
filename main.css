@@ -1,7 +1,24 @@
 #index-body {
-    width: 200px;
-    height: 100px;
-    overflow: hidden;
+    margin: -3px;
+    border-radius: 13px;
+    border: 8px solid #ffffff;
+    padding: 20px;
+    min-width: 250px;
+    min-height: 300px;
+    background-color: #aec4c4;
+}
+
+#homebutton {
+    position: fixed;
+    bottom: 55px;
+    margin: auto;
+}
+
+.logo {
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+    width: 90%;
 }
 
 /* Manipulates calendar.html */
@@ -25,7 +42,6 @@
 
 .weekdays{
     width: 100%;
-
     display: flex;
 }
 
