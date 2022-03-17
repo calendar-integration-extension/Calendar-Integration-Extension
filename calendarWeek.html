@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Calendar Integration</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+  </head>
+  <body id="calendar-body">
+    <a href="popup.html" ><button>Back</button></a>
+    <div style="height: 2rem;"></div>
+    
+    <div class="calendar">
+      <div class="weekdays">
+        <div>Sun</div>
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+      </div>
+      <div class="days" id="thedays"></div>
+    </div>
+    
+    <div class = "functions">
+        <a href="calendar.html"><button id="viewType" >Month</button></a>
+      <a href="addEventPage.html"><button id="addEventButton">Add an event</button></a>
+    </div>  
+
+    <div class = "upcoming_events" id = "calendar_events">
+      <h3>Upcoming Events:</h3>
+    </div>
+    
+
+    <script src="calendarWeek.js"></script>
+  </body>
+</html>

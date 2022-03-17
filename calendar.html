@@ -49,7 +49,6 @@
     }
     
   </style>
-
   <body id="calendar-body">
     
     <a href="popup.html">
@@ -57,8 +56,13 @@
           <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
       </button>
     </a>
-    <!-- <div style="height: 2rem;"></div> -->
-    <h1 id="calendar-month"> Month </h1>
+    <div style="text-align:center">
+      <button id='lessthanButton'<i  class="fa-solid fa-less-than"></i></button>
+      <h1 id="calendar-month" style="display:inline; padding-left:1rem; padding-right:1rem;"> Month </h1>
+      <button id='greaterthanButton'><i   class="fa-solid fa-greater-than"></i></button>
+    </div>
+    <div style="height: 2rem;"></div>
+    
     <div class="calendar">
       <div class="weekdays">
         <div>Sun</div>
@@ -72,14 +76,16 @@
       <div class="days" id="thedays"></div>
     </div>
     
-
-    <h2 id="message1" style="display:none;">You have successfully signed in!</h2>
+    <div class = "functions">
+      <a href="calendarWeek.html"><button id="viewType" >Week</button></a>
+      <button id="addEventButton">Add an event</button>
+    </div>  
 
     <div class = "upcoming_events" id = "calendar_events">
       <h3>Upcoming Events:</h3>
     </div>
+    
 
     <script src="calendar.js"></script>
-    
   </body>
 </html>

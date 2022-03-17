@@ -2,12 +2,9 @@ makeStructure();
 main();
 
 function makeStructure(){
-  let eventsElement = document.getElementById("calendar_events");
-  eventsElement.appendChild(document.createElement("tr"));
-  addUpcomingEvent('th', "Event Name", eventsElement, 'text-align: left; padding-right:1rem');
-  addUpcomingEvent('th', "Start", eventsElement, 'text-align: left; padding-right:1rem');
-  addUpcomingEvent('th', "End", eventsElement, 'text-align: left');
-  buildCalendarDates();
+  var eventsElement = document.getElementById("calendar_events");
+  const date = new Date();
+  buildCalendarDates(date);
 }
 function main() {
   
@@ -28,8 +25,21 @@ function main() {
     x.addEventListener("load", buildUpcomingEvents,x);
     x.open('GET', 'https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token=' + token, true);
     x.send();
+
+    const addEventButton = document.getElementById("addEventButton");
+    addEventButton.addEventListener('click', addEventToCalendar,token);
+
+    const backButton = document.getElementById("lessthanButton");
+    backButton.addEventListener('click', moveBack);
+
+    const forwardButton = document.getElementById("greaterthanButton");
+    forwardButton.addEventListener('click', moveForward);
+    
+    
+
   });
    
+  var el = document.querySelector('viewType');
   
 }
 
@@ -87,18 +97,28 @@ function buildUpcomingEvents(x) {
 
     for(let i = 0; i < data['items'].length; i++){
       var dateNow = new Date();
+      console.log(dateNow.toLocaleString())
       var eventDate = new Date(listOfEvents[i].endDate);
       var diff = eventDate - dateNow;
 
       if(diff > 0){
         anyUpcomingEvents = 1;
-        console.log(listOfEvents[i].nameOfEvent);
+
         eventsElement.appendChild(document.createElement("tr"));
-        addUpcomingEvent('td', listOfEvents[i].nameOfEvent, eventsElement,'padding-right:1rem');
-        addUpcomingEvent('td', listOfEvents[i].startDate, eventsElement,'padding-right:1rem');
-        addUpcomingEvent('td', listOfEvents[i].endDate, eventsElement);
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const event = new Date(listOfEvents[i].startDate);
+
+        var eventTLDR = listOfEvents[i].nameOfEvent+" from "+ event.toLocaleDateString(undefined, options) + " " + event.toLocaleTimeString('en-US') + " to "
+        const event2 = new Date(listOfEvents[i].endDate);
+        eventTLDR = eventTLDR + event2.toLocaleDateString(undefined, options) + " " + event2.toLocaleTimeString('en-US')
+
+        addUpcomingEvent('button', eventTLDR, eventsElement,'text-align: left;outline-offset: 2rem');
 
       }
+    }
+    const listedEventUpdate = document.getElementsByClassName("eventShortcutButton");
+    for(var ii = 0; ii < listedEventUpdate.length; ii++){
+      listedEventUpdate[ii].addEventListener('click', passVariables);
     }
     if(anyUpcomingEvents == 0){
       eventsElement.appendChild(document.createElement("tr"));
@@ -108,27 +128,59 @@ function buildUpcomingEvents(x) {
 
 }
 
-function addUpcomingEvent(tag, text, eventsElement, style = null) {
-  var tag = document.createElement(tag)
+function getHumanDate(date){
+  year = date.getFullYear()
+  month = date.getMonth()
+  dt = date.getDate();
+  var monthsList = [ "January", "February", "March", "April", "May", "June", 
+           "July", "August", "September", "October", "November", "December" ];
+  if (dt< 10){
+    dt = '0' + dt;
+  }
+
+}
+
+
+function addUpcomingEvent(tags, text, eventsElement, style = null) {
+  var uniqueToButton = false;
+  if(tags == 'button'){
+    uniqueToButton = true;
+  }
+  console.log(tags)
+  console.log(uniqueToButton)
+  var tag = document.createElement(tags)
+  if(uniqueToButton == true){
+    tag.className = 'eventShortcutButton';
+    console.log(text);
+  }
   var text = document.createTextNode(text)
   if (style != null) {
     tag.style.cssText = style;
   }
   tag.appendChild(text);
-  eventsElement.appendChild(tag)
+  if(uniqueToButton == true){
+    var tagLink = document.createElement('a')
+    tagLink.href = "updateEventPage.html";
+    tagLink.appendChild(tag)
+    eventsElement.appendChild(tagLink)
+  }else{
+    eventsElement.appendChild(tag)
+  }
+  
 }
 
-function buildCalendarDates() {
+function buildCalendarDates(date) {
+
   const months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
-  const date = new Date();
-  
+
+
   const currentMonthStr = months[date.getMonth()];
   let currentMonthEl = document.getElementById('calendar-month');
   currentMonthEl.innerHTML = currentMonthStr;
-
+  
   // Amount of blank dates that must be included in the calendar before starting
   // at the first date of the month.
   const dayOne = new Date(date.getFullYear(), date.getMonth(),1);
@@ -139,21 +191,61 @@ function buildCalendarDates() {
   for (let i = 1; i <= blankDatesAmount; i++){
     var blankSpace = document.createElement("div");
     console.log(blankSpace);
+    blankSpace.disabled = true;
     blankSpace.innerHTML = "";
     calDates.appendChild(blankSpace);
   }
+  const toDate = new Date();
+  dayOfMonth = toDate.getDate();
   
+  //get events here
+
   for (let i = 1; i <=new Date(date.getFullYear(), date.getMonth()+1,0).getDate(); i++){
     var tag = document.createElement("div");
-    tag.innerText = i;
+    console.log("Date")
+
+    var tag2 = document.createElement("button");
+    tag2.innerText = i;
+
+
+    //color the day Today
+    //if(parseInt(dayOfMonth) == i){
+      //tag2.style.cssText = "background-color: #1a73e8; color: white";
+      //console.log("This happened")
+    //}
+
+
+    tag.appendChild(tag2)
     calDates.appendChild(tag);
   }
+
+  
+}
+
+function passVariables(listedEventUpdate){
+  console.log(this.innerHTML);
+  //might need to get event credential (for next sprint run)
+  localStorage.setItem("eventToUpdate", Date.now());
 }
 
 
 
+function addEventToCalendar(token) {
+  
+  console.log("Function runs!")
+}
 
 
+function moveBack(){
+  document.getElementById('thedays').innerHTML = "";
+  date.setMonth(date.getMonth()-1);
 
+  buildCalendarDates(date);
+}
 
+function moveForward(){
+  document.getElementById('thedays').innerHTML = "";
+  date.setMonth(date.getMonth()+1);
 
+  buildCalendarDates(date);
+}
