@@ -2,7 +2,7 @@ makeStructure();
 main();
 
 function makeStructure(){
-  var eventsElement = document.getElementById("calendar_events");
+  let eventsElement = document.getElementById("calendar_events");
   eventsElement.appendChild(document.createElement("tr"));
   addUpcomingEvent('th', "Event Name", eventsElement, 'text-align: left; padding-right:1rem');
   addUpcomingEvent('th', "Start", eventsElement, 'text-align: left; padding-right:1rem');
@@ -119,8 +119,16 @@ function addUpcomingEvent(tag, text, eventsElement, style = null) {
 }
 
 function buildCalendarDates() {
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
   const date = new Date();
   
+  const currentMonthStr = months[date.getMonth()];
+  let currentMonthEl = document.getElementById('calendar-month');
+  currentMonthEl.innerHTML = currentMonthStr;
+
   // Amount of blank dates that must be included in the calendar before starting
   // at the first date of the month.
   const dayOne = new Date(date.getFullYear(), date.getMonth(),1);
