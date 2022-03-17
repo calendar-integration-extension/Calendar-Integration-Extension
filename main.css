@@ -27,6 +27,7 @@
     width: 500px;
     height: 400px;
     overflow: hidden;
+    background-color: #aec4c4;
 }
  
 .month{
@@ -43,33 +44,41 @@
 .weekdays{
     width: 100%;
     display: flex;
+    font-family: 'Fredoka';
+    color: #1b392c;
+    text-align: center;
+    font-weight: bold;
 }
 
 .weekdays div{
-width: calc(44.2rem/7);
-display: flex;
-justify-content: center;
-align-items: center;
+    width: calc(44.2rem/7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .days{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    font-family: 'Fredoka';
+    color: #1b392c;
+    text-align: center;
 }
 
 .days div{
-width: calc(31.2rem/7);
-height: 2rem;
-display: flex;
-justify-content: center;
-align-items: center;
-
+    width: calc(31.2rem/7);
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .upcoming_events{
-padding: 02 rem;
-width: 100%;
+    padding: 02 rem;
+    width: 100%;
+    font-family: 'Fredoka';
+    color: #1b392c;
 }
 
 /* Manipulates pomodoro.html */
