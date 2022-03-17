@@ -2,7 +2,11 @@ const SESSION_MINUTES = 25;
 const BREAK_MINUTES = 5;
 
 chrome.windows.onCreated.addListener((window) => {
-    chrome.alarms.create('WINDOW_INIT', {delayInMinutes: 0});
+    chrome.windows.getAll(windows => {
+        if (windows.length == 1) {
+            chrome.alarms.create('WINDOW_INIT', {delayInMinutes: 0});
+        }
+    });
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
