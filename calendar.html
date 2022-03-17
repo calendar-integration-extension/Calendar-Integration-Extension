@@ -57,9 +57,13 @@
       </button>
     </a>
     <div style="text-align:center">
-      <button id='lessthanButton'><i  class="fa-solid fa-less-than"></i></button>
+      <button id='lessthanButton'>
+        <i class="fa-solid fa-caret-left"></i>
+      </button>
       <h1 id="calendar-month" style="display:inline; padding-left:1rem; padding-right:1rem;"> Month </h1>
-      <button id='greaterthanButton'><i   class="fa-solid fa-greater-than"></i></button>
+      <button id='greaterthanButton'>
+        <i class="fa-solid fa-caret-right"></i>
+      </button>
     </div>
     <div style="height: 2rem;"></div>
     
@@ -77,8 +81,16 @@
     </div>
     
     <div class = "functions">
-      <a href="calendarWeek.html"><button id="viewType" >Week</button></a>
-      <a href="addEventPage.html"><button id="addEventButton">Add an event</button></a>
+      <a href="calendarWeek.html">
+        <button id="viewType" class="homebutns">
+          <i class="fa fa-toggle-off fa-2x" aria-hidden="true"></i>
+          <span>Weekly View</span>
+        </button></a>
+      <a href="addEventPage.html">
+        <button id="addEventButton" class="homebutns">
+          <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
+          <span>Add Event</span>
+        </button></a>
     </div>  
 
     <div class = "upcoming_events" id = "calendar_events">
