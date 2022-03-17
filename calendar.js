@@ -206,6 +206,7 @@ function buildCalendarDates(date) {
 
     var tag2 = document.createElement("button");
     tag2.innerText = i;
+    tag2.style.cssText = "background-color: transparent; border-color: transparent; cursor: pointer;";
 
 
     //color the day Today
