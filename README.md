@@ -30,14 +30,14 @@ In addition, you can use the built-in Pomodoro timer to help you focus in your s
 - [ ] Sign-in through Gmail to access the extension.
   - [x] Allow _only_ our group members to sign-in via their Gmail account.
   - [ ] Allow _anyone_ with a Gmail account to sign-in.
-- [ ] Retrieve and display events from user's Google Calendar account.
+- [x] Retrieve and display events from user's Google Calendar account.
 - [x] Main menu interface.
 - [ ] Calendar and Events section.
   - [x] Add Month view.
     - [x] Interface for viewing Monthly calendar.
     - [x] Interface for viewing upcoming events this Month.
   - [ ] Add Week view.
-    - [ ] Interface for viewing Weekly calendar.
+    - [x] Interface for viewing Weekly calendar.
     - [ ] Interface for viewing upcoming events this Week.
   - [ ] Events handling.
     - [ ] Add new event.
