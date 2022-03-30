@@ -10,42 +10,7 @@ function main(){
     var addEventBtn = document.getElementById("AddEventBtn");
     addEventBtn.addEventListener('click', addToCalendar);
 
-/* 
-    var texts = "Sample event on April 4 10am-10:25am"
-    var uri = "https://www.googleapis.com/calendar/v3/calendars/primary/events/quickAdd";
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', uri, true);
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken());
-	xhr.send(texts);
 
-
-
-    chrome.identity.getAuthToken({interactive: true}, function(token) { 
-        console.log(token); 
-        var x = new XMLHttpRequest();
-        var retry = true;
-        //code modified from Google Developers for checking authentication
-        x.onload = function () {
-          if (this.status === 401 && retry) {
-            retry = false;
-            chrome.identity.removeCachedAuthToken(
-                { 'token': token },
-                main);
-            return;
-          }
-        }
-        var texts = "Sample event on April 4 10am-10:25am"
-        var uri = "https://www.googleapis.com/calendar/v3/calendars/primary/events/quickAdd";
-        x.open('POST', uri, true);
-        x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        x.setRequestHeader('Authorization', 'OAuth ' + token);
-        x.send(texts);
-        console.log("Sent?")
-        //x.addEventListener("load", buildUpcomingEvents,x);
-        //x.open('GET', 'https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token=' + token, true);
-        //x.send();
-    });*/
 
 }
 
