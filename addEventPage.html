@@ -14,28 +14,32 @@
         <tbody>
             <tr>
                 <td>Event Name</td>
-                <td><input type="text"></td>
+                <td><input id="eventTitle" type="text"></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><input id="eventDescription" type="text"></td>
             </tr>
             <tr>
                 <td>Date</td>
                 <td>
                     <select name="month" id="month">
-                        <option value="1">Jan</option>
-                        <option value="2">Feb</option>
-                        <option value="3">Mar</option>
-                        <option value="4">Apr</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">Aug</option>
-                        <option value="9">Sept</option>
-                        <option value="10">Oct</option>
-                        <option value="11">Nov</option>
-                        <option value="12">Dec</option>
+                        <option value="00">Jan</option>
+                        <option value="01">Feb</option>
+                        <option value="02">Mar</option>
+                        <option value="03">Apr</option>
+                        <option value="04">May</option>
+                        <option value="05">June</option>
+                        <option value="06">July</option>
+                        <option value="07">Aug</option>
+                        <option value="08">Sept</option>
+                        <option value="09">Oct</option>
+                        <option value="10">Nov</option>
+                        <option value="11">Dec</option>
                     </select>
                     <select name="day" id="day">
-                        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
-                        <option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                        <option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option>
+                        <option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option>
                         <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
                         <option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>
                         <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option>
@@ -62,23 +66,23 @@
                 <tr id="timeInputStart">
                     <td>Start Time</td>
                     <td>
-                        <select>
-                            <option value = "1">01</option>
-                            <option value = "2">02</option>
-                            <option value = "3">03</option>
-                            <option value = "4">04</option>
-                            <option value = "5">05</option>
-                            <option value = "6">06</option>
-                            <option value = "7">07</option>
-                            <option value = "8">08</option>
-                            <option value = "9">09</option>
+                        <select id="hourStart">
+                            <option value = "01">01</option>
+                            <option value = "02">02</option>
+                            <option value = "03">03</option>
+                            <option value = "04">04</option>
+                            <option value = "05">05</option>
+                            <option value = "06">06</option>
+                            <option value = "07">07</option>
+                            <option value = "08">08</option>
+                            <option value = "09">09</option>
                             <option value = "10">10</option>
                             <option value = "11">11</option>
                             <option value = "12">12</option>
                         </select>
                         <select id="minutesStart">
                         </select>
-                        <select>
+                        <select id="partStart">
                             <option value = "AM">AM</option>
                             <option value = "PM">PM</option>
                         </select>
@@ -88,23 +92,23 @@
                 <tr id="timeInputEnd">
                     <td>End Time</td>
                     <td>
-                        <select>
-                            <option value = "1">01</option>
-                            <option value = "2">02</option>
-                            <option value = "3">03</option>
-                            <option value = "4">04</option>
-                            <option value = "5">05</option>
-                            <option value = "6">06</option>
-                            <option value = "7">07</option>
-                            <option value = "8">08</option>
-                            <option value = "9">09</option>
+                        <select id="hourEnd">
+                            <option value = "01">01</option>
+                            <option value = "02">02</option>
+                            <option value = "03">03</option>
+                            <option value = "04">04</option>
+                            <option value = "05">05</option>
+                            <option value = "06">06</option>
+                            <option value = "07">07</option>
+                            <option value = "08">08</option>
+                            <option value = "09">09</option>
                             <option value = "10">10</option>
                             <option value = "11">11</option>
                             <option value = "12">12</option>
                         </select>
                         <select id="minutesEnd">
                         </select>
-                        <select>
+                        <select  id="partEnd">
                             <option value = "AM">AM</option>
                             <option value = "PM">PM</option>
                         </select>
@@ -115,7 +119,7 @@
             
         </tbody>
     </table>
-    <button>Add Event</button>
+    <button id = "AddEventBtn">Add Event</button>
     <a href="calendar.html"><button>Cancel</button></a>
     <script src="addEventPage.js"></script>
 </body>
