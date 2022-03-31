@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Google Calendar Extension",
-    "permissions": ["activeTab","identity", "notifications", "alarms"],
+    "permissions": ["activeTab", "identity", "notifications", "alarms", "storage"],
     "description": "A Google Calendar Integrated Extension with a Pomodoro timer to help keep users productive throughout the work day.",
     "version": "1.0.0",
     "icons": {

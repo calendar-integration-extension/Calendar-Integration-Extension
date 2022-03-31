@@ -107,3 +107,11 @@
 .pomodoro-timer-control {
     text-align: center;
 }
+
+/* Manipulates dayEvents.html */
+
+.dayEvents-body {
+    width: 500px;
+    height: 300px;
+    overflow: hidden;
+}
