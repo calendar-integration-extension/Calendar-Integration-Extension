@@ -1,4 +1,5 @@
-makeStructure();
+let eventsDates = [];
+
 main();
 
 function makeStructure(){
@@ -9,10 +10,10 @@ function makeStructure(){
 function main() {
   
   chrome.identity.getAuthToken({interactive: true}, function(token) { 
-    console.log(token); 
+    // console.log(token); 
     var x = new XMLHttpRequest();
     var retry = true;
-    //code modified from Google Developers for checking authentication
+    // code modified from Google Developers for checking authentication
     x.onload = function () {
       if (this.status === 401 && retry) {
         retry = false;
@@ -22,7 +23,7 @@ function main() {
         return;
       }
     }
-    x.addEventListener("load", buildUpcomingEvents,x);
+    x.addEventListener("load", buildUpcomingEvents, x);
     x.open('GET', 'https://www.googleapis.com/calendar/v3/calendars/primary/events?access_token=' + token, true);
     x.send();
 
@@ -34,9 +35,6 @@ function main() {
 
     const forwardButton = document.getElementById("greaterthanButton");
     forwardButton.addEventListener('click', moveForward);
-    
-    
-
   });
    
   const el = document.getElementById('viewType');
@@ -78,26 +76,50 @@ function buildUpcomingEvents(x) {
   const data = JSON.parse(this.responseText);
   var eventsElement = document.getElementById("calendar_events");
   
-  const listOfEvents = []
-  console.log(data['items']);
+  const listOfEvents = [];
+  // console.log(data['items']);
   if(typeof data['items'] !== 'undefined'){
     
     for(let i = 0; i < data['items'].length; i++){
       if (data['items'][i]['start']['dateTime'] == null) {
+        let startDate = data['items'][i]['start']['date'];
+        const len = startDate.length;
+        startDate = startDate.slice(len-2, len);
+        startDate = Number(startDate);
+
+        // console.log(startDate);
+
+        if (!eventsDates.includes(startDate)) {
+          eventsDates.push(startDate);
+        }
+
         var TZOffset = getOffSet();
         listOfEvents.push({nameOfEvent:data['items'][i]['summary'], startDate:data['items'][i]['start']['date'].concat('','T00:00:00', TZOffset), endDate: data['items'][i]['end']['date'].concat('','T00:00:00',TZOffset)})
       }else{
+        let startDate = data['items'][i]['start']['dateTime'];
+        let tPos = startDate.indexOf('T');
+        startDate = startDate.slice(tPos - 2, tPos);
+        startDate = Number(startDate);
+
+        // console.log(startDate);
+        
+        if (!eventsDates.includes(startDate)) {
+          eventsDates.push(startDate);
+        }
+
         listOfEvents.push({nameOfEvent:data['items'][i]['summary'], startDate:data['items'][i]['start']['dateTime'], endDate: data['items'][i]['end']['dateTime']})
       }
     }
+
+    console.log(eventsDates);
   
     listOfEvents.sort(objectCompare);
-    console.log(listOfEvents);
+    // console.log(listOfEvents);
     var anyUpcomingEvents = 0;
 
     for(let i = 0; i < data['items'].length; i++){
       var dateNow = new Date();
-      console.log(dateNow.toLocaleString())
+      // console.log(dateNow.toLocaleString())
       var eventDate = new Date(listOfEvents[i].endDate);
       var diff = eventDate - dateNow;
 
@@ -126,6 +148,7 @@ function buildUpcomingEvents(x) {
     }
   }
 
+  makeStructure();
 }
 
 function getHumanDate(date){
@@ -146,12 +169,12 @@ function addUpcomingEvent(tags, text, eventsElement, style = null) {
   if(tags == 'button'){
     uniqueToButton = true;
   }
-  console.log(tags)
-  console.log(uniqueToButton)
+  // console.log(tags)
+  // console.log(uniqueToButton)
   var tag = document.createElement(tags)
   if(uniqueToButton == true){
     tag.className = 'eventShortcutButton';
-    console.log(text);
+    // console.log(text);
   }
   var text = document.createTextNode(text)
   if (style != null) {
@@ -190,7 +213,7 @@ function buildCalendarDates(date) {
   
   for (let i = 1; i <= blankDatesAmount; i++){
     var blankSpace = document.createElement("div");
-    console.log(blankSpace);
+    // console.log(blankSpace);
     blankSpace.disabled = true;
     blankSpace.innerHTML = "";
     calDates.appendChild(blankSpace);
@@ -201,26 +224,37 @@ function buildCalendarDates(date) {
   //get events here
 
   for (let i = 1; i <=new Date(date.getFullYear(), date.getMonth()+1,0).getDate(); i++){
-    var tag = document.createElement("div");
-    console.log("Date")
+    let tag = document.createElement("div");
+    let tagInnerHTML = '';
 
-    var tag2 = document.createElement("button");
-    tag2.innerText = i;
-    tag2.style.cssText = "background-color: transparent; border-color: transparent; cursor: pointer;";
+    if (eventsDates.includes(i)) {
+      tagInnerHTML = `
+        <div>
+          <a href="dayEvents.html">
+            <button id= "date-${i}" type="button" style="background-color: #456178; border-color: transparent; cursor: pointer;">
+              ${i}
+            </button>
+          </a>
+        </div>
+      `;
+    } else {
+      tagInnerHTML = `
+        <div>
+          <a href="dayEvents.html">
+            <button id= "date-${i}" type="button" style="background-color: transparent; border-color: transparent; cursor: pointer;">
+              ${i}
+            </button>
+          </a>
+        </div>
+      `;
+    }
 
-
-    //color the day Today
-    //if(parseInt(dayOfMonth) == i){
-      //tag2.style.cssText = "background-color: #1a73e8; color: white";
-      //console.log("This happened")
-    //}
-
-
-    tag.appendChild(tag2)
+    tag.innerHTML = tagInnerHTML;
     calDates.appendChild(tag);
-  }
-
-  
+    document.getElementById(`date-${i}`).addEventListener('click', () => {
+      chrome.storage.local.set({ 'date': i });
+    });
+  }  
 }
 
 function passVariables(listedEventUpdate){

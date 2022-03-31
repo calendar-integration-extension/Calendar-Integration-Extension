@@ -126,6 +126,7 @@ h1
     color: #1b392c;
     text-align: center;
 }
+
 h3 
 {
     font-family: 'Fredoka';
@@ -149,5 +150,46 @@ h3
 {
   background-color: #4b5f63;
   border-radius: 13px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+/* Manipulates dayEvents.html */
+
+.dayEvents-body {
+    width: 500px;
+    height: 300px;
+    overflow: hidden;
+    background-color: #aec4c4;
+    margin: -3px;
+    border-radius: 13px;
+    border: 8px solid #ffffff;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.dayEvents-events {
+    font-family: 'Fredoka';
+    color: #1b392c;
+    text-align: center;
+    margin: auto;
+}
+
+.dayEvents-butns 
+{   
+    background-color: #91b0b5;
+    border: none;
+    color: #1b392c;
+    padding: 20px 20px; /* Some padding */
+    cursor: pointer; /* Mouse pointer on hover */
+    transition-duration: 0.4s;
+    border-radius: 13px;
+    text-align: left;
+    
+}
+
+.dayEvents-butns:hover
+{
+  background-color: #3f93a0;
+  /* border-radius: 13px; */
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
