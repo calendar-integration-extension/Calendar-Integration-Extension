@@ -49,7 +49,7 @@ chrome.storage.local.get(['date'], items => {
                     evBtn.innerHTML = `
                         <div>
                             <a href="updateEventPage.html">
-                                <button style="flex: true">
+                                <button class="dayEvents-butns dayEvents-events">
                                     ${evTitle} - ${evInterval}
                                 </button>
                             </a>

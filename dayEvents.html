@@ -1,15 +1,32 @@
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content = "ie-edge">
+    <title>Calendar Integration</title>
     <link rel="stylesheet" href="main.css">
-</head>
-<body class="dayEvents-body">
-    <div id="dayEvents-back-btn">
-        <a href="calendar.html">
-            <button>Back</button>
-        </a>
-    </div>
-    <div id="dayEvents-root"></div>
-    <script src="dayEvents.js"></script>
-</body>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredoka">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  </head>
+  <style>
+    span {
+        display: block;
+        font-family: 'Fredoka';
+        color: #fffdf0;
+        font-size: 18px;
+        padding-top: 10px;
+    }
+  </style>
+  <body class="dayEvents-body">
+        <div id="dayEvents-back-btn">
+            <a href="calendar.html">
+                <button id = "demo" class="homebutns">
+                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                </button>
+            </a>
+        </div>
+        <h3>Here are your events for today!</h3>
+        <div id="dayEvents-root"></div>
+        <script src="dayEvents.js"></script>
+    </body>
 </html>
