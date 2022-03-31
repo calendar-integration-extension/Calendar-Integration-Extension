@@ -100,7 +100,9 @@ class Pomodoro {
                 <span class="pomodoro-timer-display-seconds">--</span>
             </div> 
             <div class="pomodoro-timer-control">
-                <button type="button" class="pomodoro-timer-control-btn">Start Session</button>
+                
+                <button type="button" class="pomodoro-timer-control-btn homebutns">Start Session</button>
+                
             </div>
         `
     }

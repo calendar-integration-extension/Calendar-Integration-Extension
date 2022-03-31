@@ -87,6 +87,7 @@
     width: 500px;
     height: 300px;
     overflow: hidden;
+    background-color: #aec4c4;
 }
 
 .pomodoro-title {
@@ -100,10 +101,53 @@
 }
 
 .pomodoro-timer-display {
-    font-size: 80px;
+    font-size: 50px;
     text-align: center;
+    font-family: 'Fredoka';
+    color: #1b392c;
 }
 
 .pomodoro-timer-control {
     text-align: center;
+    font-family: 'Fredoka';
+    color: #1b392c;
+}
+
+.pomodoro-timer-control-btn{
+    text-align: center;
+    font-family: 'Fredoka';
+    color: #1b392c;    
+}
+
+/* Hovering */
+h1 
+{
+    font-family: 'Fredoka';
+    color: #1b392c;
+    text-align: center;
+}
+h3 
+{
+    font-family: 'Fredoka';
+    color: #1b392c;
+    text-align: center;
+}    
+
+
+
+.homebutns 
+{   
+    background-color: transparent;
+    border: none;
+    color: #fffdf0;
+    padding: 20px 20px; /* Some padding */
+    cursor: pointer; /* Mouse pointer on hover */
+    transition-duration: 0.4s;
+}
+
+.homebutns:hover
+{
+  background-color: #4b5f63;
+  border-radius: 13px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
