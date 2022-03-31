@@ -64,9 +64,11 @@ chrome.storage.local.get(['date'], items => {
                 }
             });
 
+            let pageHeader = document.getElementById('dayEvents-header');
             if (noEvents) {
-                let noEventsMsg = document.createElement('h2');
-                noEventsMsg.innerHTML = 'No recorded events for this date.'
+                pageHeader.textContent = 'No recorded events for this date.'
+            } else {
+                pageHeader.textContent = 'Here are your events for today!';
             }
         })
         .catch(err => {
