@@ -50,7 +50,7 @@ function addToCalendar(){
     if(wholeDayCheckbox == true){
         console.log("???")
         dateOfEventA = new Date(yearOfEvent, monthOfEvent, dayOfEvent)
-        dateOfEventB = new Date(yearOfEvent, monthOfEvent, dayOfEvent)
+        dateOfEventB = new Date(yearOfEvent, monthOfEvent, dayOfEvent,"23","59")
     }else{
         var hourStart = document.getElementById("hourStart").value;
         console.log(hourStart)
