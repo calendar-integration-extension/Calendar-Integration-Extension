@@ -37,8 +37,8 @@ function main() {
     forwardButton.addEventListener('click', moveForward);
   });
    
-  var el = document.querySelector('viewType');
-  
+  const el = document.getElementById('viewType');
+  el.addEventListener('click', weeklyView);
 }
 
 function objectCompare(firstDate, secondDate){
@@ -283,4 +283,54 @@ function moveForward(){
   date.setMonth(date.getMonth()+1);
 
   buildCalendarDates(date);
+}
+
+function weeklyView(){
+  if(document.getElementById('viewText').innerHTML === "Weekly View"){
+    document.getElementById('viewText').innerHTML = "Monthly View"
+    buildWeek()
+  }else{
+    document.getElementById('viewText').innerHTML = "Weekly View"
+    document.getElementById('thedays').innerHTML = "";
+
+    buildCalendarDates(date);
+  }
+  
+
+}
+
+function buildWeek(){
+  document.getElementById('thedays').innerHTML = "";
+  const date = new Date();
+  
+  // Amount of blank dates that must be included in the calendar before starting
+  // at the first date of the month.
+  const dayOne = new Date(date.getFullYear(), date.getMonth(),1);
+  const blankDatesAmount = dayOne.getDay();
+  var calDates = document.getElementById("thedays");
+  
+  
+  const toDate = new Date();
+  dayOfMonth = toDate.getDate();
+  
+  //get events here
+
+
+  var dayOfWeek = toDate.getDay();
+  var startOfWeek = dayOfMonth-dayOfWeek
+
+  for(let i = 0;i < 7; i++){
+      console.log(i)
+    var tag = document.createElement("div");
+
+    var tag2 = document.createElement("button");
+    if(startOfWeek > 0 & startOfWeek <=new Date(date.getFullYear(), date.getMonth()+1,0).getDate()){
+        console.log()
+        tag2.innerText = startOfWeek;
+    }
+    tag.appendChild(tag2)
+    calDates.appendChild(tag);
+    
+    startOfWeek = startOfWeek + 1;
+  }
 }
