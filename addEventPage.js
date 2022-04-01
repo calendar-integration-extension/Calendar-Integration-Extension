@@ -69,8 +69,10 @@ function addToCalendar(){
         dateOfEventA.setHours("00")
         dateOfEventA.setMinutes("00")
         dateOfEventB = new Date(endDateElmt)
-        dateOfEventB.setHours("23")
-        dateOfEventB.setMinutes("59")
+        dateOfEventB.setDate(dateOfEventB.getDate()+1)
+        dateOfEventB.setHours("00")
+        dateOfEventB.setMinutes("00")
+
         console.log(dateOfEventA)
         console.log(dateOfEventB)
     }else{
