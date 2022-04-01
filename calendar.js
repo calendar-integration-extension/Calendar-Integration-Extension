@@ -193,7 +193,8 @@ function addUpcomingEvent(tags, text, eventsElement, style = null) {
 }
 
 function buildCalendarDates(date) {
-
+  document.getElementById('toggleBtn').classList.remove("fa-toggle-on");
+  document.getElementById('toggleBtn').classList.add("fa-toggle-off");
   const months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -300,6 +301,8 @@ function weeklyView(){
 }
 
 function buildWeek(){
+  document.getElementById('toggleBtn').classList.remove("fa-toggle-off");
+  document.getElementById('toggleBtn').classList.add("fa-toggle-on");
   document.getElementById('thedays').innerHTML = "";
   const date = new Date();
   
