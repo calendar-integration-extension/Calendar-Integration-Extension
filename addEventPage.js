@@ -138,6 +138,7 @@ function addToCalendar(){
               .then((response) => response.json()) // Transform the data into json
               .then(function (data) {
                 console.log(data);//contains the response of the created event
+                window.location.href = 'calendar.html';
               });
           });
     }
