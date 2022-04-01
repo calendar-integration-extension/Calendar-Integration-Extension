@@ -1,7 +1,7 @@
 let root = document.getElementById('dayEvents-root');
 
-chrome.storage.local.get(['date'], items => {
-    const chosenDate = items.date;
+chrome.storage.local.get(['event'], items => {
+    const chosenEvent = items.event;
 
     chrome.identity.getAuthToken({ interactive: true }, token => {
         console.log(token);
@@ -29,19 +29,21 @@ chrome.storage.local.get(['date'], items => {
                 if ("dateTime" in ev.start) {
                     evStartDate = ev.start.dateTime;
                     const tPos = evStartDate.indexOf('T');
-                    evStartDate = evStartDate.slice(tPos-2, tPos);
+                    evStartDate = evStartDate.slice(0, tPos);
                 } else {
                     evStartDate = ev.start.date;
-                    const len = evStartDate.length;
-                    evStartDate = evStartDate.slice(len-2, len);
                 }
-                evStartDate = Number(evStartDate);
+                evStartDate = new Date(evStartDate);
                 
-                if (evStartDate === chosenDate) {        
+                if (evStartDate.getFullYear() === chosenEvent.year && 
+                    evStartDate.getMonth() === chosenEvent.month && 
+                    evStartDate.getDate() === chosenEvent.date
+                    ) {      
+                    console.log(evStartDate);
                     noEvents = false;
-                    let evTitle = (ev.summary !== null) ? ev.summary : 'No Title';
-                    let startDate = (ev.start.date !== null) ? ev.start.date : ev.start.dateTime;
-                    let endDate = (ev.end.date !== null) ? ev.end.date : ev.end.dateTime;
+                    let evTitle = (ev.summary != null) ? ev.summary : 'No Title';
+                    let startDate = (ev.start.date != null) ? ev.start.date : ev.start.dateTime;
+                    let endDate = (ev.end.date != null) ? ev.end.date : ev.end.dateTime;
                     let evInterval = startDate + ' to ' + endDate;  
                     let evId = ev.id;
 
