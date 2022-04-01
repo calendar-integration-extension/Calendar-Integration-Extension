@@ -1,6 +1,20 @@
 main();
 
 function main(){
+    var today2 = new Date();
+    if(today2.getMonth()+1 < 10 & +today2.getDate() < 10){
+        var date2 = today2.getFullYear()+'-0'+(today2.getMonth()+1)+'-0'+today2.getDate();
+    }else if(today2.getMonth()+1 < 10){
+        var date2 = today2.getFullYear()+'-0'+(today2.getMonth()+1)+'-'+today2.getDate();
+    }else if(today2.getDate() < 10){
+        var date2 = today2.getFullYear()+'-'+(today2.getMonth()+1)+'-0'+today2.getDate();
+    }else{
+        var date2 = today2.getFullYear()+'-'+(today2.getMonth()+1)+'-'+today2.getDate();
+    }
+    
+    console.log(date2)
+    document.getElementById('start-date').defaultValue = date2;
+    document.getElementById('end-date').defaultValue = date2;
     var checkWholeDay = document.getElementById("wholeDayCheckbox");
     checkWholeDay.addEventListener('change', toggleTimeVisibility,checkWholeDay)
 
@@ -40,17 +54,25 @@ function makeMinutes(){
 function addToCalendar(){
     var eventTitle = document.getElementById("eventTitle").value;
     var eventDescription = document.getElementById("eventDescription").value;
-    var monthOfEvent = document.getElementById("month").value;
-    var dayOfEvent = document.getElementById("day").value;
-    var yearOfEvent = document.getElementById("year").value;
+    //var monthOfEvent = document.getElementById("month").value;
+    //var dayOfEvent = document.getElementById("day").value;
+    //var yearOfEvent = document.getElementById("year").value;
+    var startDateElmt = document.getElementById('start-date').value;
+    var endDateElmt = document.getElementById('end-date').value;
     
     var wholeDayCheckbox = document.getElementById("wholeDayCheckbox").checked;
     
     //dateOfEvent = yearOfEvent.concat("-",monthOfEvent,"-",dayOfEvent)
     if(wholeDayCheckbox == true){
         console.log("???")
-        dateOfEventA = new Date(yearOfEvent, monthOfEvent, dayOfEvent)
-        dateOfEventB = new Date(yearOfEvent, monthOfEvent, dayOfEvent,"23","59")
+        dateOfEventA = new Date(startDateElmt)
+        dateOfEventA.setHours("00")
+        dateOfEventA.setMinutes("00")
+        dateOfEventB = new Date(endDateElmt)
+        dateOfEventB.setHours("23")
+        dateOfEventB.setMinutes("59")
+        console.log(dateOfEventA)
+        console.log(dateOfEventB)
     }else{
         var hourStart = document.getElementById("hourStart").value;
         console.log(hourStart)
@@ -60,7 +82,9 @@ function addToCalendar(){
             hourStart = parseInt(hourStart) + 12
             hourStart = String(hourStart)
         }
-        dateOfEventA = new Date(yearOfEvent, monthOfEvent, dayOfEvent, hourStart, minutesStart)
+        dateOfEventA = new Date(startDateElmt)
+        dateOfEventA.setHours(hourStart)
+        dateOfEventA.setMinutes(minutesStart)
 
         var hourEnd = document.getElementById("hourEnd").value;
         console.log(hourEnd)
@@ -70,7 +94,9 @@ function addToCalendar(){
             hourEnd = parseInt(hourEnd) + 12
             hourEnd = String(hourEnd)
         }
-        dateOfEventB = new Date(yearOfEvent, monthOfEvent, dayOfEvent, hourEnd, minutesEnd)
+        dateOfEventB = new Date(endDateElmt)
+        dateOfEventB.setHours(hourEnd)
+        dateOfEventB.setMinutes(minutesEnd)
         console.log(dateOfEventA)
         console.log(dateOfEventB)
 
