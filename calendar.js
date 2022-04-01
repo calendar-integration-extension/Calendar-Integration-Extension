@@ -260,8 +260,6 @@ function changeView() {
           el.currMonthYearHeaderEl.textContent = `
               Week ${currWeekView.week} of ${months[currWeekView.month]} ${currWeekView.year}.
           `;
-
-
       });
   }
 }
@@ -312,7 +310,6 @@ function buildMonthViewObject(events, month, year) {
 
   return curr;
 }
-
 function buildWeekViewObject(events, month, year) {
   let curr = {
       month: month,
@@ -334,6 +331,6 @@ function buildWeekViewObject(events, month, year) {
       }
   });
   curr.datesWithEvents.sort();
-
+  
   return curr;
 }
