@@ -1,3 +1,8 @@
+const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+];
+
 let root = document.getElementById('dayEvents-root');
 
 chrome.storage.local.get(['event'], items => {
@@ -67,10 +72,11 @@ chrome.storage.local.get(['event'], items => {
             });
 
             let pageHeader = document.getElementById('dayEvents-header');
+            let chosenDateString = `${months[chosenEvent.month]} ${chosenEvent.date}, ${chosenEvent.year}`;
             if (noEvents) {
-                pageHeader.textContent = 'No recorded events for this date.'
+                pageHeader.textContent = `No recorded events for ${chosenDateString}.`;
             } else {
-                pageHeader.textContent = 'Here are your events for today!';
+                pageHeader.textContent = `Here are your events for ${chosenDateString}.`;
             }
         })
         .catch(err => {

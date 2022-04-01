@@ -3,8 +3,13 @@ const months = [
   'July', 'August', 'September', 'October', 'November', 'December'
 ];
 
+const days = [
+  'Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'
+];
+
 let el = {
   currMonthYearHeaderEl: document.getElementById('calendar-month-year'),
+  weekDaysLabelEl: document.getElementsByClassName('weekdays')[0],
   addNewEventBtnEl: document.getElementById('addEventButton'),
   changeViewToggleEl: document.getElementById('viewType'),
   prevMonthOrWeekBtnEl: document.getElementById('lessthanButton'),
@@ -63,7 +68,6 @@ function buildCalendarPage(events) {
   });
   curr.datesWithEvents.sort();
 
-  // chrome.storage.local.set({ 'curr': curr });
   el.currMonthYearHeaderEl.textContent = `${months[curr.month]} ${curr.year}`;
   buildMonthCalendarDates(curr);
   buildUpcomingEvents(events);
@@ -83,13 +87,21 @@ function buildCalendarPage(events) {
 
   el.prevMonthOrWeekBtnEl.addEventListener('click', goToPrevMonthOrWeek);
   el.nextMonthOrWeekBtnEl.addEventListener('click', goToNextMonthOrWeek);
-  // el.changeViewToggleEl.addEventListener('click', changeView);
+  el.changeViewToggleEl.addEventListener('click', changeView);
 }
 
 function buildMonthCalendarDates(date) {
+  
   // Fill the Calendar's blank dates.
-
+  
   el.calendarDatesEl.innerHTML = '';
+  const daysMonthVersion = [
+    'Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'
+  ];
+
+  for (let i = 0; i < 7; i++) {
+    document.getElementById(`day-${i+1}`).textContent = daysMonthVersion[i];
+  }
 
   const dayOne = new Date(date.year, date.month, 1);
   const blankDaysAmount = dayOne.getDay();
@@ -140,18 +152,64 @@ function buildMonthCalendarDates(date) {
 }
 
 function buildWeekCalendarDates(date) {
+  el.calendarDatesEl.innerHTML = '';
 
+  for (let i = 0; i < 7; i++) {
+    if (i < date.numDays) {
+      let d = new Date(`${date.year}-${date.month + 1}-${date.daysRange[i]}`);
+      let day = days[d.getDay()];
+      document.getElementById(`day-${i+1}`).textContent = day;
+    } else {
+      console.log('hello');
+      document.getElementById(`day-${i+1}`).textContent = '';
+    }
+  }
+  
+  for (let i = 1; i <= date.numDays; i++) {
+      let weekDate = (date.week - 1) * 7 + i;
+      let dateEl = document.createElement('div');
+      let dateInnerHTML = '';
+  
+      if (date.datesWithEvents.includes(weekDate)) {
+          dateInnerHTML = `
+            <div>
+              <a href="dayEvents.html">
+                <button id= "${date.year}-${date.month}-${weekDate}" type="button" style="background-color: #456178; border-color: transparent; cursor: pointer;">
+                  ${weekDate}
+                </button>
+              </a>
+            </div>
+          `;
+      } else {
+          dateInnerHTML = `
+            <div>
+              <a href="dayEvents.html">
+                <button id= "${date.year}-${date.month}-${weekDate}" type="button" style="background-color: transparent; border-color: transparent; cursor: pointer;">
+                  ${weekDate}
+                </button>
+              </a>
+            </div>
+          `;
+      }
+  
+      dateEl.innerHTML = dateInnerHTML;
+      el.calendarDatesEl.appendChild(dateEl);
+      document.getElementById(`${date.year}-${date.month}-${weekDate}`).addEventListener('click', () => {
+          chrome.storage.local.set({
+              'event': {'year': date.year, 'month': date.month, 'date': weekDate}
+          });
+      });
+  }
+  
 }
 
 function buildUpcomingEvents(events) {
   const today = new Date();
-  console.log(today);
   let upcomingEventsNum = 0;
 
   events.forEach(ev => {
       let evStartDate = getEventDate(ev.start);
       let evEndDate = getEventDate(ev.end);
-
       
       if (isUpcomingEvent(today, evStartDate)) {
           upcomingEventsNum++;
@@ -215,6 +273,33 @@ function goToPrevMonthOrWeek() {
           let date = buildMonthViewObject(newCurrMonthView.events, newCurrMonthView.month, newCurrMonthView.year);
           buildMonthCalendarDates(date);
       });
+    } else {
+      let newCurrWeekView = {week: 0, month: 0, year: 0, events: null};
+      
+      chrome.storage.local.get(['currWeekView'], items => {
+          let currWeekView = items.currWeekView;
+
+          if (currWeekView.week === 1) {
+            if (currWeekView.month === 0) {
+              newCurrWeekView.month = 11;
+              newCurrWeekView.year = currWeekView.year - 1;
+            } else {
+              newCurrWeekView.month = currWeekView.month - 1;
+              newCurrWeekView.year = currWeekView.year;
+            }
+            newCurrWeekView.week = 5;
+            newCurrWeekView.events = currWeekView.events;
+          } else {
+            newCurrWeekView = currWeekView;
+            newCurrWeekView.week--;
+          }
+          
+          chrome.storage.local.set({'currWeekView': newCurrWeekView});
+          
+          el.currMonthYearHeaderEl.textContent = `Week ${newCurrWeekView.week} of ${months[newCurrWeekView.month]} ${newCurrWeekView.year}.`;
+          let date = buildWeekViewObject(newCurrWeekView.events, newCurrWeekView.week, newCurrWeekView.month, newCurrWeekView.year);
+          buildWeekCalendarDates(date);
+      });
   }
 }
 
@@ -245,7 +330,35 @@ function goToNextMonthOrWeek() {
           el.currMonthYearHeaderEl.textContent = `${months[newCurrMonthView.month]} ${newCurrMonthView.year}`;
           let date = buildMonthViewObject(newCurrMonthView.events, newCurrMonthView.month, newCurrMonthView.year);
           buildMonthCalendarDates(date);
-      });
+    });
+  } else {
+    let newCurrWeekView = {week: 0, month: 0, year: 0, events: null};
+      
+    chrome.storage.local.get(['currWeekView'], items => {
+        let currWeekView = items.currWeekView;
+
+        if (currWeekView.week === 5) {
+          if (currWeekView.month === 11) {
+            newCurrWeekView.month = 0;
+            newCurrWeekView.year = currWeekView.year + 1;
+          } else {
+            newCurrWeekView.month = currWeekView.month + 1;
+            newCurrWeekView.year = currWeekView.year;
+          }
+          newCurrWeekView.week = 1;
+          newCurrWeekView.events = currWeekView.events;
+        } else {
+          newCurrWeekView = currWeekView;
+          newCurrWeekView.week++;
+        }
+        console.log(newCurrWeekView.month);
+        
+        chrome.storage.local.set({'currWeekView': newCurrWeekView});
+        
+        el.currMonthYearHeaderEl.textContent = `Week ${newCurrWeekView.week} of ${months[newCurrWeekView.month]} ${newCurrWeekView.year}.`;
+        let date = buildWeekViewObject(newCurrWeekView.events, newCurrWeekView.week, newCurrWeekView.month, newCurrWeekView.year);
+        buildWeekCalendarDates(date);
+    });
   }
 }
 
@@ -260,7 +373,28 @@ function changeView() {
           el.currMonthYearHeaderEl.textContent = `
               Week ${currWeekView.week} of ${months[currWeekView.month]} ${currWeekView.year}.
           `;
+
+          let WeekViewObj = buildWeekViewObject(
+            currWeekView.events, currWeekView.week, currWeekView.month, currWeekView.year
+          );
+
+          buildWeekCalendarDates(WeekViewObj);
       });
+    } else {
+      chrome.storage.local.get(['currMonthView'], items => {
+          let currMonthView = items.currMonthView;
+
+          el.currMonthYearHeaderEl.textContent = `
+              ${months[currMonthView.month]} ${currMonthView.year}
+          `;
+
+          let MonthViewObj = buildMonthViewObject(
+            currMonthView.events, currMonthView.month, currMonthView.year
+          );
+
+          buildMonthCalendarDates(MonthViewObj);
+      });
+      document.getElementById('viewText').textContent = 'Weekly View';
   }
 }
 
@@ -310,21 +444,34 @@ function buildMonthViewObject(events, month, year) {
 
   return curr;
 }
-function buildWeekViewObject(events, month, year) {
+function buildWeekViewObject(events, week, month, year) {
   let curr = {
+      week: week,
       month: month,
       year: year,
       numDays: 0,
+      daysRange: [],
       datesWithEvents: []
   };
 
-  curr.numDays = daysInMonth(curr.month + 1, curr.year);
+  if (week === 5) {
+    curr.numDays = daysInMonth(curr.month + 1, curr.year) % 7;
+  } else {
+    curr.numDays = 7;
+  }
+
+  for (let i = 1; i <= curr.numDays; i++) {
+    curr.daysRange.push((week - 1) * 7 + i);
+  }
 
   // Set curr.datesWithEvents content.
   events.forEach(ev => {
       let evStartDate = getEventDate(ev.start);
   
-      if (evStartDate.getFullYear() === curr.year && evStartDate.getMonth() === curr.month) {
+      if (evStartDate.getFullYear() === curr.year && 
+          evStartDate.getMonth() === curr.month &&
+          curr.daysRange.includes(evStartDate.getDate())
+          ) {
           if (!curr.datesWithEvents.includes(evStartDate.getDate())) {
               curr.datesWithEvents.push(evStartDate.getDate());
           }
