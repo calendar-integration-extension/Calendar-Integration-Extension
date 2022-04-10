@@ -88,6 +88,7 @@ function buildCalendarPage(events) {
   el.prevMonthOrWeekBtnEl.addEventListener('click', goToPrevMonthOrWeek);
   el.nextMonthOrWeekBtnEl.addEventListener('click', goToNextMonthOrWeek);
   el.changeViewToggleEl.addEventListener('click', changeView);
+  el.addNewEventBtnEl.addEventListener('click', addNewEventPrep);
 }
 
 function buildMonthCalendarDates(date) {
@@ -396,6 +397,17 @@ function changeView() {
       });
       document.getElementById('viewText').textContent = 'Weekly View';
   }
+}
+
+function addNewEventPrep() {
+  let currDate = new Date();
+  currDate = {
+    year: currDate.getFullYear(),
+    month: currDate.getMonth(),
+    date: currDate.getDate()
+  };
+
+  chrome.storage.local.set({'addEventInfo': currDate});
 }
 
 function daysInMonth(month,year) {

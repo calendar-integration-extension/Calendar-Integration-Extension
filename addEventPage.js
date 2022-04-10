@@ -1,146 +1,216 @@
-main();
+let el = {
+    eventNameElmt: document.getElementById('event-name-input'),
+    eventDescriptionElmt: document.getElementById('event-description-input'),
+    startDateElmt: document.getElementById('start-date'),
+    startDateLabel: document.getElementById('start-date-label'),
+    startTimeElmt: document.getElementById('start-time'),
+    startTimeLabel: document.getElementById('start-time-label'),
+    endDateElmt: document.getElementById('end-date'),
+    endDateLabel: document.getElementById('end-date-label'),
+    endTimeElmt: document.getElementById('end-time'),
+    endTimeLabel: document.getElementById('end-time-label'),
+    wholeDayElmt: document.getElementById('whole-day-checkbox'),
+    includeDayElmt: document.getElementById('include-day-checkbox'),
+    includeDayLabel: document.getElementById('include-day-label'),
+    addEventBtnElmt: document.getElementById('add-event-btn'),
+};
 
-function main(){
-    var today2 = new Date();
-    if(today2.getMonth()+1 < 10 & +today2.getDate() < 10){
-        var date2 = today2.getFullYear()+'-0'+(today2.getMonth()+1)+'-0'+today2.getDate();
-    }else if(today2.getMonth()+1 < 10){
-        var date2 = today2.getFullYear()+'-0'+(today2.getMonth()+1)+'-'+today2.getDate();
-    }else if(today2.getDate() < 10){
-        var date2 = today2.getFullYear()+'-'+(today2.getMonth()+1)+'-0'+today2.getDate();
-    }else{
-        var date2 = today2.getFullYear()+'-'+(today2.getMonth()+1)+'-'+today2.getDate();
-    }
-    
-    console.log(date2)
-    document.getElementById('start-date').defaultValue = date2;
-    document.getElementById('end-date').defaultValue = date2;
-    var checkWholeDay = document.getElementById("wholeDayCheckbox");
-    checkWholeDay.addEventListener('change', toggleTimeVisibility,checkWholeDay)
+class UpdateEventPage {
+    constructor() {
+        el.wholeDayElmt.addEventListener('change', function() {
+            if (this.checked) {
+                el.startDateLabel.textContent = 'Date';
+                el.endDateElmt.style.visibility = 'hidden';
+                el.endDateLabel.style.visibility = 'hidden';
 
-    
-    makeMinutes();
-
-    var addEventBtn = document.getElementById("AddEventBtn");
-    addEventBtn.addEventListener('click', addToCalendar);
-
-
-
-}
-
-function toggleTimeVisibility(checkWholeDay){
-    var timeInput = document.getElementById("timeInputStart");
-    var timeInput2 = document.getElementById("timeInputEnd");
-    if(this.checked == true){
-        timeInput.style.visibility = "hidden";
-        timeInput2.style.visibility = "hidden";
-        console.log("Whole day");
-    }else{
-        timeInput.style.visibility = "visible";
-        timeInput2.style.visibility = "visible";
-        console.log("Not whole Day");
-    }
-}
-
-function makeMinutes(){
-    var createMinutes1 = document.getElementById("minutesStart");
-    var createMinutes2 = document.getElementById("minutesEnd");
-    for(i = 0;i < 60;i++){
-        createMinutes1.appendChild(new Option(i,i));
-        createMinutes2.appendChild(new Option(i,i));
-    }
-}
-
-function addToCalendar(){
-    var eventTitle = document.getElementById("eventTitle").value;
-    var eventDescription = document.getElementById("eventDescription").value;
-    //var monthOfEvent = document.getElementById("month").value;
-    //var dayOfEvent = document.getElementById("day").value;
-    //var yearOfEvent = document.getElementById("year").value;
-    var startDateElmt = document.getElementById('start-date').value;
-    var endDateElmt = document.getElementById('end-date').value;
-    
-    var wholeDayCheckbox = document.getElementById("wholeDayCheckbox").checked;
-    
-    //dateOfEvent = yearOfEvent.concat("-",monthOfEvent,"-",dayOfEvent)
-    if(wholeDayCheckbox == true){
-        console.log("???")
-        dateOfEventA = new Date(startDateElmt)
-        dateOfEventA.setHours("00")
-        dateOfEventA.setMinutes("00")
-        dateOfEventB = new Date(endDateElmt)
-        dateOfEventB.setDate(dateOfEventB.getDate()+1)
-        dateOfEventB.setHours("00")
-        dateOfEventB.setMinutes("00")
-
-        console.log(dateOfEventA)
-        console.log(dateOfEventB)
-    }else{
-        var hourStart = document.getElementById("hourStart").value;
-        console.log(hourStart)
-        var minutesStart = document.getElementById("minutesStart").value;
-        console.log(minutesStart)
-        if(document.getElementById("partStart").value == "PM"){
-            hourStart = parseInt(hourStart) + 12
-            hourStart = String(hourStart)
-        }
-        dateOfEventA = new Date(startDateElmt)
-        dateOfEventA.setHours(hourStart)
-        dateOfEventA.setMinutes(minutesStart)
-
-        var hourEnd = document.getElementById("hourEnd").value;
-        console.log(hourEnd)
-        var minutesEnd = document.getElementById("minutesEnd").value;
-        console.log(minutesEnd)
-        if(document.getElementById("partEnd").value == "PM"){
-            hourEnd = parseInt(hourEnd) + 12
-            hourEnd = String(hourEnd)
-        }
-        dateOfEventB = new Date(endDateElmt)
-        dateOfEventB.setHours(hourEnd)
-        dateOfEventB.setMinutes(minutesEnd)
-        console.log(dateOfEventA)
-        console.log(dateOfEventB)
-
-    }
-    
-    if(eventTitle != ""){
-        chrome.identity.getAuthToken({ interactive: true }, function (token) {
-            console.log(token);
-            //details about the event
-            //reference: https://stackoverflow.com/questions/55935126/how-can-i-use-the-google-api-in-a-chrome-extension
-            let event = {
-                summary: String(eventTitle),
-                description: String(eventDescription),
-                start: {
-                    'dateTime': dateOfEventA,
-                    'timeZone': Intl.DateTimeFormat().resolvedOptions().timeZone
-                },
-                end: {
-                    'dateTime': dateOfEventB,
-                    'timeZone': Intl.DateTimeFormat().resolvedOptions().timeZone
+                if (el.includeDayElmt.checked) {
+                    el.startTimeElmt.style.visibility = 'hidden';
+                    el.startTimeLabel.style.visibility = 'hidden';
+                    el.endTimeElmt.style.visibility = 'hidden';
+                    el.endTimeLabel.style.visibility = 'hidden';
                 }
-            };
-        
-            let fetch_options = {
-              method: 'POST',
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(event),
-            };
-        
-            fetch(
-              'https://www.googleapis.com/calendar/v3/calendars/primary/events',
-              fetch_options
-            )
-              .then((response) => response.json()) // Transform the data into json
-              .then(function (data) {
-                console.log(data);//contains the response of the created event
-                window.location.href = 'calendar.html';
-              });
-          });
+
+                el.includeDayElmt.style.visibility = 'hidden';
+                el.includeDayLabel.style.visibility = 'hidden';
+            } else {
+                el.startDateLabel.textContent = 'Start Date';
+                el.endDateElmt.style.visibility = 'visible';
+                el.endDateLabel.style.visibility = 'visible';
+
+                if (el.includeDayElmt.checked) {
+                    el.startTimeElmt.style.visibility = 'visible';
+                    el.startTimeLabel.style.visibility = 'visible';
+                    el.endTimeElmt.style.visibility = 'visible';
+                    el.endTimeLabel.style.visibility = 'visible';
+                }
+
+                el.includeDayElmt.style.visibility = 'visible';
+                el.includeDayLabel.style.visibility = 'visible';
+            }
+        });
+
+        el.includeDayElmt.addEventListener('change', function() {
+            if (this.checked) {
+                el.startTimeElmt.style.visibility = 'visible';
+                el.startTimeLabel.style.visibility = 'visible';
+                el.endTimeElmt.style.visibility = 'visible';
+                el.endTimeLabel.style.visibility = 'visible';
+            } else {
+                el.startTimeElmt.style.visibility = 'hidden';
+                el.startTimeLabel.style.visibility = 'hidden';
+                el.endTimeElmt.style.visibility = 'hidden';
+                el.endTimeLabel.style.visibility = 'hidden';
+            }
+        });
+
+        el.addEventBtnElmt.addEventListener('click', this.addEvent);
+
+        chrome.storage.local.get(['addEventInfo'], items => {
+            let addEventInitialData = items.addEventInfo;
+            let startDate = `${addEventInitialData.year}-${String(addEventInitialData.month + 1).padStart(2, '0')}-${addEventInitialData.date}`;
+            el.startDateElmt.value = startDate;
+        });
     }
 
+    addEvent() {
+        if (isFormValid()) {
+            chrome.identity.getAuthToken({ interactive: true }, function(token) {
+                let event = {};
+
+                if (el.wholeDayElmt.checked || (el.startTimeElmt.value === '' && el.endTimeElmt.value === '')) {
+                    console.log(el.startDateElmt.value);
+                    event = {
+                        summary: el.eventNameElmt.value,
+                        description: el.eventDescriptionElmt.value,
+                        start: {
+                            'date': el.startDateElmt.value,
+                            'timeZone': 'Asia/Manila'
+                        },
+                        end: {
+                            'date': (el.wholeDayElmt.checked) ? el.startDateElmt.value : el.endDateElmt.value,
+                            'timeZone': 'Asia/Manila'
+                        }
+                    };
+                } else if (el.startTimeElmt.value !== '' && el.endTimeElmt.value !== '') {
+                    console.log(el.startTimeElmt.value);
+                    console.log(el.endTimeElmt.value);
+                    event = {
+                        summary: el.eventNameElmt.value,
+                        description: el.eventDescriptionElmt.value,
+                        start: {
+                            'dateTime': `${el.startDateElmt.value}T${el.startTimeElmt.value}:00+08:00`,
+                            'timeZone': 'Asia/Manila'
+                        },
+                        end: {
+                            'dateTime': `${el.endDateElmt.value}T${el.endTimeElmt.value}:00+08:00`,
+                            'timeZone': 'Asia/Manila'
+                        }
+                    };
+                }
+
+        
+                let fetch_options = {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(event),
+                };
+        
+                fetch(
+                    'https://www.googleapis.com/calendar/v3/calendars/primary/events',
+                    fetch_options
+                )
+                .then(response => response.json())
+                .then(eventResource => {
+                    console.log(eventResource);
+                    window.location.href = 'calendar.html';
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            });
+            
+        }
+    }
 }
+
+function getEventDate(eventBoundary) {
+    let chosenEvent = {date: '', time: ''};
+    if ('dateTime' in eventBoundary) {
+        const tCharDelim = eventBoundary.dateTime.indexOf('T');
+        const plusCharDelim = eventBoundary.dateTime.indexOf('+');
+        chosenEvent.date = eventBoundary.dateTime.slice(0, tCharDelim);
+        chosenEvent.time = eventBoundary.dateTime.slice(tCharDelim + 1, plusCharDelim);
+    } else {
+        chosenEvent.date = eventBoundary.date;
+    }
+
+    return chosenEvent;
+}
+
+function isFormValid() {
+    let title = el.eventNameElmt.value;
+    let startDate = (el.startDateElmt.value === '') ? '' : new Date(el.startDateElmt.value);
+    let endDate = (el.endDateElmt.value === '') ? '' : new Date(el.endDateElmt.value);
+    let startTime = el.startTimeElmt.value;
+    let endTime = el.endTimeElmt.value;
+    let wholeDay = el.wholeDayElmt.checked;
+    let includeDay = el.includeDayElmt.checked;
+
+    if (title === '') {
+        alert('The event must have a title.');
+        return false;
+    }
+
+    if (!wholeDay) {
+        if (startDate === '') {
+            alert('Please fill the Start Date completely.');
+            return false;
+        } else if (endDate === '') {
+            alert('Please fill the End Date completely.');
+            return false;
+        } else if (includeDay) {
+            if (startTime === '' && endTime === '') {
+                alert('Please fill the Start Time and End Time completely.');
+                return false;
+            } else if (startTime === '' && endTime !== '') {
+                alert('Please fill the Start Time completely.');
+                return false;
+            } else if (startTime !== '' && endTime === '') {
+                alert('Please fill the End Time completely.');
+                return false;
+            }
+        } else if (endDate - startDate < 0) {
+            alert('Start Date should be earlier than the End Date.');
+            return false;
+        } else if (startTime !== '' && endTime !== '' && startDate.getTime() === endDate.getTime()) {
+            console.log('hello');
+            startTime = startTime.split(':');
+            startTime = { hour: Number(startTime[0]), minute: Number(startTime[1]) };
+            startTimeTotalMinutes = startTime.hour * 60 + startTime.minute
+
+            endTime = endTime.split(':');
+            endTime = { hour: Number(endTime[0]), minute: Number(endTime[1]) };
+            endTimeTotalMinutes = endTime.hour * 60 + endTime.minute
+
+            console.log(startTimeTotalMinutes);
+            console.log(endTimeTotalMinutes);
+
+            if (startTimeTotalMinutes >= endTimeTotalMinutes) {
+                alert('Start Time should be earlier than the End Time.')
+                return false;
+            }
+        }
+    } else {
+        if (startDate === '') {
+            alert('Please fill the Start Date completely.');
+            return false;
+        }
+    }
+
+    return true;
+}
+
+new UpdateEventPage();

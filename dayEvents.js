@@ -4,6 +4,7 @@ const months = [
 ];
 
 let root = document.getElementById('dayEvents-root');
+let addEventBtnEl = document.getElementById('add-event-btn');
 
 chrome.storage.local.get(['event'], items => {
     const chosenEvent = items.event;
@@ -47,9 +48,16 @@ chrome.storage.local.get(['event'], items => {
                     console.log(evStartDate);
                     noEvents = false;
                     let evTitle = (ev.summary != null) ? ev.summary : 'No Title';
-                    let startDate = (ev.start.date != null) ? ev.start.date : ev.start.dateTime;
-                    let endDate = (ev.end.date != null) ? ev.end.date : ev.end.dateTime;
-                    let evInterval = startDate + ' to ' + endDate;  
+                    let startDateString = getDateString(ev.start);
+                    let endDateString = getDateString(ev.end);
+                    let evInterval = '';
+
+                    if (startDateString === endDateString) {
+                        evInterval = `${startDateString}`;
+                    } else {
+                        evInterval = `From ${startDateString} to ${endDateString}.`;
+                    }
+
                     let evId = ev.id;
 
                     let evBtn = document.createElement('div');
@@ -71,6 +79,10 @@ chrome.storage.local.get(['event'], items => {
                 }
             });
 
+            addEventBtnEl.addEventListener('click', () => {
+                chrome.storage.local.set({'addEventInfo': chosenEvent});
+            });
+
             let pageHeader = document.getElementById('dayEvents-header');
             let chosenDateString = `${months[chosenEvent.month]} ${chosenEvent.date}, ${chosenEvent.year}`;
             if (noEvents) {
@@ -85,3 +97,32 @@ chrome.storage.local.get(['event'], items => {
 
     });
 });
+
+function getDateString(boundary) {
+    let boundaryDateString = '';
+    if (boundary.date == null) {
+        let boundaryDateFull = new Date(boundary.dateTime);
+        let boundaryDate = boundaryDateFull.toLocaleDateString();
+        let boundaryDateParsed = boundaryDate.split('/');
+        boundaryDateParsed = {
+            month: boundaryDateParsed[0],
+            date: boundaryDateParsed[1],
+            year: boundaryDateParsed[2],
+        }
+        boundaryTime = boundaryDateFull.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+        boundaryDateString = `${months[Number(boundaryDateParsed.month) - 1]} ${boundaryDateParsed.date}, ${boundaryDateParsed.year}, ${boundaryTime}`;
+    } else {
+        let boundaryDateFull = new Date(boundary.date);
+        let boundaryDate = boundaryDateFull.toLocaleDateString();
+        console.log(boundaryDate);
+        let boundaryDateParsed = boundaryDate.split('/');
+        boundaryDateParsed = {
+            month: boundaryDateParsed[0],
+            date: boundaryDateParsed[1],
+            year: boundaryDateParsed[2],
+        }
+        boundaryDateString = `${months[Number(boundaryDateParsed.month) - 1]} ${boundaryDateParsed.date}, ${boundaryDateParsed.year}`;
+    }
+
+    return boundaryDateString;
+}

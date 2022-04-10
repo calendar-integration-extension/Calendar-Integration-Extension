@@ -7,95 +7,78 @@
     <title>Calendar Extension</title>
     <link rel="stylesheet" href="main.css">
 </head>
-<body id="addEventCalendar-body">
-    <a href="calendar.html"><button>Back</button></a>
-    <p>Add Event Page</p>
-    <table class = "table center" style="width:100%;">
+<body id="updateEventCalendar-body" style="width: 300px">
+    Add Event
+    <table>
         <tbody>
             <tr>
-                <td>Event Name</td>
-                <td><input id="eventTitle" type="text"></td>
+                <td>
+                    Event Name 
+                </td>
+                <td>
+                    <input id="event-name-input" type="text">
+                </td>
             </tr>
             <tr>
-                <td>Description</td>
-                <td><input id="eventDescription" type="text"></td>
+                <td>
+                    Description 
+                </td>
+                <td>
+                    <input id="event-description-input" type="text">
+                </td>
             </tr>
             <tr>
-                <td>Start Date</td>
+                <td id="start-date-label">
+                    Start Date
+                </td>
                 <td>
                     <input type="date" name="start-date" id="start-date">
                 </td>
             </tr>
             <tr>
-                <td>End Date</td>
+                <td id="start-time-label">
+                    Start Time
+                </td>
+                <td>
+                    <input type="time" name="start-time" id="start-time">
+                </td>
+            </tr>
+            <tr>
+                <td id="end-date-label">
+                    End Date
+                </td>
                 <td>
                     <input type="date" name="end-date" id="end-date">
                 </td>
             </tr>
             <tr>
+                <td id="end-time-label">
+                    End Time
+                </td>
                 <td>
-                    <input type="checkbox" name="wholeDay" id="wholeDayCheckbox"><label for="wholeDay">Whole day</label>
+                    <input type="time" name="end-time" id="end-time">
                 </td>
             </tr>
-            
-                <tr id="timeInputStart">
-                    <td>Start Time</td>
-                    <td>
-                        <select id="hourStart">
-                            <option value = "01">01</option>
-                            <option value = "02">02</option>
-                            <option value = "03">03</option>
-                            <option value = "04">04</option>
-                            <option value = "05">05</option>
-                            <option value = "06">06</option>
-                            <option value = "07">07</option>
-                            <option value = "08">08</option>
-                            <option value = "09">09</option>
-                            <option value = "10">10</option>
-                            <option value = "11">11</option>
-                            <option value = "12">12</option>
-                        </select>
-                        <select id="minutesStart">
-                        </select>
-                        <select id="partStart">
-                            <option value = "AM">AM</option>
-                            <option value = "PM">PM</option>
-                        </select>
-                    </td>
-
-                </tr>
-                <tr id="timeInputEnd">
-                    <td>End Time</td>
-                    <td>
-                        <select id="hourEnd">
-                            <option value = "01">01</option>
-                            <option value = "02">02</option>
-                            <option value = "03">03</option>
-                            <option value = "04">04</option>
-                            <option value = "05">05</option>
-                            <option value = "06">06</option>
-                            <option value = "07">07</option>
-                            <option value = "08">08</option>
-                            <option value = "09">09</option>
-                            <option value = "10">10</option>
-                            <option value = "11">11</option>
-                            <option value = "12">12</option>
-                        </select>
-                        <select id="minutesEnd">
-                        </select>
-                        <select  id="partEnd">
-                            <option value = "AM">AM</option>
-                            <option value = "PM">PM</option>
-                        </select>
-                    </td>
-                </tr>
-            
-            
-            
+            <tr>
+                <td>
+                    <input type="checkbox" name="whole-day" id="whole-day-checkbox">
+                    <label for="whole-day">Whole day</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" name="include-day" id="include-day-checkbox" checked>
+                    <label for="include-day" id="include-day-label">Include day</label>
+                </td>
+            </tr>
         </tbody>
     </table>
-    <button id = "AddEventBtn">Add Event</button>
-    <a href="calendar.html"><button>Cancel</button></a>
+    <button id="add-event-btn">
+        Add Event
+    </button>
+    <a href="calendar.html">
+        <button> Cancel </button>
+    </a>
     <script src="addEventPage.js"></script>
 </body>
 </html>

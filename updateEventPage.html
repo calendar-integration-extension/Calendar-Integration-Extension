@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body id="updateEventCalendar-body" style="width: 300px">
-    <a href="calendar.html">
-        <button> Back </button>
-    </a>
     Update Event
     <table>
         <tbody>
@@ -31,11 +28,19 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td id="start-date-label">
                     Start Date
                 </td>
                 <td>
                     <input type="date" name="start-date" id="start-date">
+                </td>
+            </tr>
+            <tr>
+                <td id="start-time-label">
+                    Start Time
+                </td>
+                <td>
+                    <input type="time" name="start-time" id="start-time">
                 </td>
             </tr>
             <tr>
@@ -47,9 +52,23 @@
                 </td>
             </tr>
             <tr>
+                <td id="end-time-label">
+                    End Time
+                </td>
+                <td>
+                    <input type="time" name="end-time" id="end-time">
+                </td>
+            </tr>
+            <tr>
                 <td>
                     <input type="checkbox" name="whole-day" id="whole-day-checkbox">
-                    <label for="wholeDay">Whole day</label>
+                    <label for="whole-day">Whole day</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" name="include-day" id="include-day-checkbox" checked>
+                    <label for="include-day" id="include-day-label">Include day</label>
                 </td>
             </tr>
         </tbody>
