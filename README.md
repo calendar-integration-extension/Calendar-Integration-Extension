@@ -40,8 +40,8 @@ In addition, you can use the built-in Pomodoro timer to help you focus in your s
     - [x] Interface for viewing Weekly calendar.
     - [ ] Interface for viewing upcoming events this Week.
   - [ ] Events handling.
-    - [ ] Add new event.
-    - [ ] Edit existing event.
+    - [x] Add new event.
+    - [x] Edit existing event.
     - [ ] Delete existing event.
 - [x] Pomodoro section.
   - [x] Interface for viewing Pomodoro section.
