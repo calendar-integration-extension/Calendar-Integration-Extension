@@ -8,10 +8,23 @@ Morco, Michael Bejamin C. <br>
 Rule, Camille P.
 
 ## Table of Contents
+* [Project Preview](#project-preview)
 * [Project Description](#project-description)
 * [Project Limitation](#project-limitation)
 * [Features Checklist](#features-checklist)
 * [Installation and Set Up Guide](#installation-and-set-up-guide)
+
+## Project Preview
+**Note:** The project's visual is not yet in its final design.
+
+* Main Menu Page
+![Main Menu](images/preview/main-menu.png)
+
+* Calendar Page
+![Calendar](images/preview/calendar.png)
+
+* Pomodoro Page
+![Pomodoro](images/preview/pomodoro.png)
 
 ## Project Description
 
