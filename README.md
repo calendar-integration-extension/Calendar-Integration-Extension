@@ -8,28 +8,28 @@ Morco, Michael Bejamin C. <br>
 Rule, Camille P.
 
 ## Table of Contents
-* [Project Preview](#project-preview)
 * [Project Description](#project-description)
+* [Project Preview](#project-preview)
 * [Project Limitation](#project-limitation)
 * [Features Checklist](#features-checklist)
 * [Installation and Set Up Guide](#installation-and-set-up-guide)
-
-## Project Preview
-**Note:** The project's visual is not yet in its final design.
-
-* Main Menu Page
-![Main Menu](images/preview/main-menu.png)
-
-* Calendar Page
-![Calendar](images/preview/calendar.png)
-
-* Pomodoro Page
-![Pomodoro](images/preview/pomodoro.png)
 
 ## Project Description
 
 This extension provides a handy interface to manage and view your Google Calendar events wherever you are in the Web.
 In addition, you can use the built-in Pomodoro timer to help you focus in your studies or in your work.
+
+## Project Preview
+**Note:** The project's visual is not yet in its final design.
+
+* Main Menu Page <br> <br>
+![Main Menu](images/preview/main-menu.png)
+
+* Calendar Page <br> <br>
+![Calendar](images/preview/calendar.png)
+
+* Pomodoro Page <br> <br>
+![Pomodoro](images/preview/pomodoro.png)
 
 ## Project Limitation
 
@@ -52,16 +52,15 @@ In addition, you can use the built-in Pomodoro timer to help you focus in your s
   - [ ] Add Week view.
     - [x] Interface for viewing Weekly calendar.
     - [ ] Interface for viewing upcoming events this Week.
-  - [ ] Events handling.
+  - [x] Events handling.
     - [x] Add new event.
     - [x] Edit existing event.
-    - [ ] Delete existing event.
+    - [x] Delete existing event.
 - [x] Pomodoro section.
   - [x] Interface for viewing Pomodoro section.
   - [x] Pomodoro session handling.
     - [x] Start new Pomodoro session.
     - [x] Stop current Pomodoro session.
-- [ ] Beautiful user interface.
 
 ## Installation and Set Up Guide
 
