@@ -225,7 +225,7 @@ function buildUpcomingEvents(events) {
 
           evPreviewEl.innerHTML = `
               <a href="updateEventPage.html">
-                  <button style="text-align: left; outline-offset: 2rem">
+                  <button class="dayEvents-butns dayEvents-events">
                       ${evPreviewText}
                   </button>
               </a>
