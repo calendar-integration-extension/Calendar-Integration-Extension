@@ -220,7 +220,14 @@ function buildUpcomingEvents(events) {
               start: `${months[evStartDate.getMonth()]} ${evStartDate.getDate()}, ${evStartDate.getFullYear()}`,
               end: `${months[evEndDate.getMonth()]} ${evEndDate.getDate()}, ${evEndDate.getFullYear()}`
           };
-          let evPreviewText = `${evPreview.title} - ${evPreview.start} to ${evPreview.end}`;
+          let evPreviewText = '';
+
+          if (evPreview.start === evPreview.end) {
+            evPreviewText = `${evPreview.title} - ${evPreview.start}`;
+          } else {
+            evPreviewText = `${evPreview.title} - ${evPreview.start} to ${evPreview.end}`;
+          }
+          
           let evPreviewEl = document.createElement('div');
 
           evPreviewEl.innerHTML = `

@@ -67,7 +67,7 @@ class UpdateEventPage {
 
         chrome.storage.local.get(['addEventInfo'], items => {
             let addEventInitialData = items.addEventInfo;
-            let startDate = `${addEventInitialData.year}-${String(addEventInitialData.month + 1).padStart(2, '0')}-${addEventInitialData.date}`;
+            let startDate = `${addEventInitialData.year}-${String(addEventInitialData.month + 1).padStart(2, '0')}-${String(addEventInitialData.date).padStart(2, '0')}`;
             el.startDateElmt.value = startDate;
         });
     }
